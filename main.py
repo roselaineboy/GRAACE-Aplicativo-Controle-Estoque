@@ -18,27 +18,6 @@ class Inicialize():
             os.system('cls')
     # Fim - limpar_tela
 
-    def show_menu(self):
-        self.limpar_tela();
-        print(50 * '═')
-
-        print('Bem-vindo ao ACE - Aplicativo de Controle de Estoque')
-        print(50 * '═')
-        print('1 - Adicionar Produto')
-        print('2 - Visualizar Produto')
-        print('3 - Sair')
-        print(50 * '═')
-    # Fim - show_menu
-
-    def choose_option(self):
-        option = input('\nEscolha uma das opções: ')
-        
-        if option not in ['1', '2', '3']:
-            print('\nOpção inválida!')
-        
-        return option
-    # fim - choose_option
-
 if __name__ == '__main__':
     #__main__ é herança do py para saber de onde partir
     ace = Inicialize()
