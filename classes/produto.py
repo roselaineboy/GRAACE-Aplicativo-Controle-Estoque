@@ -41,3 +41,20 @@ class Produto():
 
         return "Produto cadastrado"
 
+    def minimo(self):
+        pass
+
+    def alterar_estoque(self):
+        pass
+
+    def remover(self):
+        self.__utils.remover(id)
+        
+    def adicionar_quantidade(self):
+        pass
+        
+    def remover_quantidade(self):
+        pass
+        
+    def log(self):
+        pass

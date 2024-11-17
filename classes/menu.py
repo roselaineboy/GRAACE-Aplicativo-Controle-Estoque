@@ -23,9 +23,11 @@ class Menu(Settings):
         print(len_row * '═')
         print('1 - Adicionar Produto')
         print('2 - Visualizar Estoque')
-        print('3 - Alterar estoque')
+        print('3 - Alterar Estoque')
         print('4 - Remover Estoque')
-        print('5 - Log do Estoque')
+        print('5 - Adicionar quantidade do item no estoque')
+        print('6 - Remover quantidade do item no Estoque')
+        print('7 - Log do Estoque')
         print('0 - Sair')
         print(len_row * '═')
     #Inicio - Cria a função de selecionar as opções
@@ -44,7 +46,7 @@ class Menu(Settings):
 
             option = input('\nEscolha uma das opções: ')
         
-            if option not in ['0', '1', '2', '3', '4', '5']:
+            if option not in ['0', '1', '2', '3', '4', '5', '6', '7']:
                 msg_text = 'Opção inválida!'
             else:
                 if option == '1':
@@ -62,7 +64,15 @@ class Menu(Settings):
                     msg_text = 'Remover Estoque'
                 elif option == '5':
                     #ace.to_go_out()
+                    msg_text = 'Adicionar quantidade'
+                elif option == '6':
+                    #ace.to_go_out()
+                    msg_text = 'Remover quantidade'
+                elif option == '7':
+                    #ace.to_go_out()
                     msg_text = 'Log do Estoque'
+                elif option == '0':
+                    break
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 
