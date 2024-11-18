@@ -7,13 +7,13 @@
 
 class Settings():
     def __init__(self):
-        self.__repository_produtos = './data/produtos.json'
-        self.__repository_estoques = './data/estoques.json'
+        self.__repository_produtos = './data/estoque.json'
+        self.__repository_log = './data/log.json'
 
     @property
     def produtos_repository(self):
         return self.__repository_produtos
 
     @property
-    def estoques_repository(self):
-        return self.__repository_produtos
+    def log_repository(self):
+        return self.__repository_log
