@@ -1,16 +1,16 @@
-from entities.def_produto import DefProduto
 from utils.bib import GlobalFunctions
+from utils.utils import Utils
 
-class Produto():
+class Produto:
     def __init__(self):
-        self.__produto = DefProduto()
         self.__gf = GlobalFunctions()
-    
-    def view_produto(self):
-        self.__produto.view()
+        self.__produto = Utils()
+
+    def ver_produto(self):
+        self.__produto.ver_produto()
 
     def receber_dados_novo_produto(self):
-        msg_validacao = 'Informe os dados do Produtos'
+        msg_validacao = 'Informe os dados do produto'
 
         while msg_validacao != '':
             self.__gf.limpar_tela()
@@ -48,13 +48,20 @@ class Produto():
         pass
 
     def remover(self):
-        self.__utils.remover(id)
+        self.__produto.remover(id)
         
-    def adicionar_quantidade(self):
-        pass
-        
-    def remover_quantidade(self):
-        pass
+    def adicionar_quantidade(self, id, quantidade):
+        self.__produto.adicionar_quantidade(id, quantidade)
+    
+    def remover_quantidade(self, id, quantidade):
+        self.__produto.remover_quantidade(id, quantidade)
         
     def log(self):
-        pass
+        log = self.__produto.ler_log_json()
+        print("Data       | Ação        | Item Alterado")
+        print("-" * 45)
+        for ind, row in log.iterrows():
+            print(f"{row['Data']:<10}| {row['Ação']:<12}| {row['Item Alterado']}")
+    
+    def estoque_baixo(self):
+        self.__produto.estoque_baixo() 
