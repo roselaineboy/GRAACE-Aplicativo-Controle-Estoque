@@ -42,3 +42,4 @@ O objetivo é oferecer uma solução simples para registrar e consultar produtos
 ├── README.md
 └── requirements.txt
 └── main.py
+
