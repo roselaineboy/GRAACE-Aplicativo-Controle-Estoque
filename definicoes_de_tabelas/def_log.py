@@ -5,24 +5,17 @@
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
 
-class Def_Produto():
-    def __init__(self, codigo=0):
+from classes.log import Log
 
-    @property
-    def codigo(self):
-        return self.__codigo
+class DefLog:
+    def __init__(self, log_file="log.json"):
+        """Inicializa a classe DefLog com o sistema de logs."""
+        self.__log = Log(log_file)
 
-    def validar_conteudo(self):
+    def registrar_log(self, acao, mensagem):
+        """Registra uma mensagem de log."""
+        self.__log.registrar(acao, mensagem)
 
-        msg = ''
-        if type(self.__codigo) != int and int(self.__codigo) <= 0:
-            msg = msg + '\nO código deve ser um número maior que zero'
-
-        return msg
-    #Fim validar_conteudo
-
-    def view(self):
-        print(f'Código................: {self.__codigo}')
-    
-    def __str__(self):
-        self.view(self)
+    def exibir_todos_logs(self):
+        """Exibe todos os logs registrados."""
+        self.__log.exibir_logs()
