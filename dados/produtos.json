@@ -1,0 +1,34 @@
+[
+    {
+        "codigo":"A001",
+        "nome":"prod 1",
+        "categoria":"c1",
+        "valor_unitario":10.0,
+        "qtde_minimaestoque":2,
+        "saldo_estoque":1
+    },
+    {
+        "codigo":"A002",
+        "nome":"Prod 2",
+        "categoria":"C1",
+        "valor_unitario":15.0,
+        "qtde_minimaestoque":2,
+        "saldo_estoque":10
+    },
+    {
+        "codigo":"A003",
+        "nome":"Prod 3",
+        "categoria":"C1",
+        "valor_unitario":12.0,
+        "qtde_minimaestoque":5,
+        "saldo_estoque":2
+    },
+    {
+        "codigo":"A004",
+        "nome":"Produto Quatro",
+        "categoria":"Categoria Um",
+        "valor_unitario":36.0,
+        "qtde_minimaestoque":10,
+        "saldo_estoque":20
+    }
+]

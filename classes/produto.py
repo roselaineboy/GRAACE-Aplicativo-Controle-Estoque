@@ -1,19 +1,50 @@
-from utils.bib import GlobalFunctions
-from utils.utils import Utils
+import pandas as pd
+import json
+
+from definicoes_de_tabelas.def_produto import Def_Produto
+from utils.bib import Funcao_Global
+from configuracoes.config import Definicao
 
 class Produto():
     def __init__(self):
-        self.__gf = GlobalFunctions()
-        self.__produto = Utils()
+        self.__produto = Def_Produto()
+        self.bib = Funcao_Global()
+        self.definicao = Definicao()
+        self.__lista_produtos = pd.DataFrame([])
+        self.carrega_lista_produto()
+
+    def carrega_lista_produto(self):
+        caminho_arquivo = self.definicao.db_produtos
+        arquivo_ok = self.bib.verifica_arquivo(caminho_arquivo)
+
+        if arquivo_ok == '':
+            dados = pd.read_json(caminho_arquivo)
+            if not dados.empty:
+                # Converte os dados para um DataFrame do pandas
+                self.__lista_produtos = pd.DataFrame(dados)
+    # fim - carrega_lista_produto
+
+    def salva_lista_produto(self):
+        msg_retorno = ''
+        caminho_arquivo = self.definicao.db_produtos
+        try:
+            with open(caminho_arquivo, 'w') as arquivo:
+                self.__lista_produtos.to_json(caminho_arquivo, orient='records', indent=4)
+        except Exception as e:
+            msg_retorno = f"Erro ao salvar o arquivo: {e}"
+        return msg_retorno
+    # Fim - salva_lista_produto
+
 
     def ver_produto(self):
-        self.__produto.ver_produto()
+        self.bib.limpar_tela()
+        self.__produto.view()
 
-    def receber_dados_novo_produto(self):
+    def cadastrar_produto(self):
         msg_validacao = 'Informe os dados do produto'
 
         while msg_validacao != '':
-            self.__gf.limpar_tela()
+            self.bib.limpar_tela()
 
             if len(msg_validacao) > 0:
                 print(msg_validacao)
@@ -23,45 +54,40 @@ class Produto():
             if self.__produto.codigo != '-1':
                 self.__produto.nome = input('Nome: ')
                 self.__produto.categoria = input('Categoria: ')
-                self.__produto.localarmazenamento = input('Local de Armazenamento: ')
                 self.__produto.valorunitario = input('Valor Unitário: ')
+                self.__produto.qtde_minimaestoque = input('Quantidade Minima de Estoque: ')
+                self.__produto.saldo_estoque = input('Saldo Inicial do Estoque: ')
             
             if self.__produto.codigo == '-1':
                 msg_validacao = ''
             else:
                 msg_validacao = self.__produto.validar_conteudo()
-
+                if msg_validacao == "":
+                    self.__lista_produtos = pd.concat([self.__lista_produtos, pd.DataFrame(self.__produto.linha_produto)], ignore_index=True)
+                    msg_validacao = self.salva_lista_produto()
+                    if msg_validacao == "":
+                        self.ver_produto()
+                        print('Produto incluido com sucesso, pressione <ENTER> para iniciar a inclusão de novo produto, ou MENU para voltar ao menu')
+                        msg_validacao = input('')
+                        if msg_validacao == "MENU":
+                            msg_validacao = ''
+                        else:
+                            msg_validacao = 'Informe os dados do produto'
         # fim - while
-        self.__gf.limpar_tela()
+        self.bib.limpar_tela()
 
-        if msg_validacao == "":
-            self.view_produto()
-            input('<ENTER>')
-            self.__gf.limpar_tela()
+        return
+    # fim Cadastro Produto
 
-        return "Produto cadastrado"
+    def atualizar_produto(self):
+        print('executou atualizar_produto')
 
-    def minimo(self):
-        pass
+    def deletar_produto(self):
+        print('executou deletar_produto')
 
-    def alterar_estoque(self):
-        pass
-
-    def remover(self):
-        self.__produto.remover(id)
+    def listar_produtos(self):
+        self.bib.limpar_tela()
+        print(self.__lista_produtos)
+        print('Pressione <ENTER> para para voltar ao menu')
+        input('...')
         
-    def adicionar_quantidade(self, id, quantidade):
-        self.__produto.adicionar_quantidade(id, quantidade)
-    
-    def remover_quantidade(self, id, quantidade):
-        self.__produto.remover_quantidade(id, quantidade)
-        
-    def log(self):
-        log = self.__produto.ler_log_json()
-        print("Data       | Ação        | Item Alterado")
-        print("-" * 45)
-        for ind, row in log.iterrows():
-            print(f"{row['Data']:<10}| {row['Ação']:<12}| {row['Item Alterado']}")
-    
-    def estoque_baixo(self):
-        self.__produto.estoque_baixo() 
