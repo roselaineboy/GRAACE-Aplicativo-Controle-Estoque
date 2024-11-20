@@ -1,9 +1,9 @@
-# GARACE-Aplicativo-Controle-Estoque
-GARACE - Aplicativo de Controle de Estoque - Pós FACENS
+# GRAACE-Aplicativo-Controle-Estoque
+GRAACE - Aplicativo de Controle de Estoque - Pós FACENS
 
 # 📦 Aplicativo de Controle de Estoque
 
-Este projeto é um **Aplicativo de Controle de Estoque** que permite gerenciar produtos e seus respectivos estoques, facilitando o controle de entradas e saídas de mercadorias. 
+Este projeto é um **Aplicativo de Controle de Estoque** que permite gerenciar produtos e seus respectivos estoques, facilitando o controle de entradas e saídas de mercadorias do estoque de uma pequena loja on-line. 
 O objetivo é oferecer uma solução simples para registrar e consultar produtos, além de monitorar quantidades mínimas de estoque.
 
 ## ✨ Funcionalidades
@@ -22,7 +22,8 @@ O objetivo é oferecer uma solução simples para registrar e consultar produtos
 ## 🛠️ Tecnologias Utilizadas
 
 - Linguagem: Python
-- Armazenamento: CSV
+- Armazenamento: JSon
+- Dependencias: Pandas
 
 ## 📂 Estrutura do Projeto
 
