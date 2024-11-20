@@ -5,16 +5,21 @@
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
 
+import pandas as pd
 from definicoes_de_tabelas.def_produto import Def_Produto
 from utils.bib import Funcao_Global
 
-class Produto():
+class Relatorio():
     def __init__(self):
         self.__produto = Def_Produto()
         self.__fg = Funcao_Global()
 
-    def cadastrar_produto(self):
-        print('entrou no cadastrar_produto')
-        input('<enter> para prosseguir')
+    def listar_abaixo_estoque_minimo(self):
+        self.__fg.limpar_tela()
 
-        return 'Produto cadastrado'
+        #produtos_baixo_estoque = self.__produto.df[
+        #    (self.__produto.df['saldo_estoque'] <= self.__produto.df['EstoqueMinimo']) | (self.__produto.df['Saldo'] == 0)
+        #]
+        print('produtos_baixo_estoque')
+        input('<ENTER> para prosseguir')
+        return ""
