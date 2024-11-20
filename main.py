@@ -4,18 +4,38 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
-
-<<<<<<< HEAD
+import time
+#from classes.menu import Menu
 from classes.relatorio import Relatorio
-=======
->>>>>>> 63eb3f382ad72c5a1d0b2abfe077a0d3ca05aeb9
-from classes.menu import Menu
+from utils.bib import Funcao_Global
 
+#==============================================================================
+def splash():
+    bib = Funcao_Global()
+    bib.limpar_tela()
+    print('=-' * 19)
+    print('+----  +---+  +---+  +---+  +---  +----')
+    print('|      |   |  |   |  |   |  |     |    ')
+    print('|  --  |---   |---|  |---|  |     |--  ')
+    print('|   |  | \\    |   |  |   |  |     |    ')
+    print('|___|  |  \\   |   |  |   |  |___  |____')
+    print('=-' * 19)
+    print('  Aplicativo de Controle de Estoque')
+    print('=-' * 19)
+#Fim - splash
+
+#==============================================================================
 if __name__ == '__main__':
+    splash()
+    
+    from classes.menu import Menu
+
+    time.sleep(1)
+
     rel = Relatorio()
-    rel.listar_abaixo_estoque_minimo()
+    rel.listar_abaixo_estoque_minimo(False)
+
     menu = Menu()
-<<<<<<< HEAD
     menu.exibir_solicitar_executar()
-=======
->>>>>>> 63eb3f382ad72c5a1d0b2abfe077a0d3ca05aeb9
+
+

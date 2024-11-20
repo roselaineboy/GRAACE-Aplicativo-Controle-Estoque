@@ -4,6 +4,7 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
+from utils.bib import Funcao_Global
 
 class Def_Produto():
     def __init__(self, codigo=0, nome='', categoria='', valor_unitario=0.00, qtde_minimaestoque=0, saldo_estoque=0.00 ):
@@ -13,6 +14,18 @@ class Def_Produto():
         self.__valorunitario = valor_unitario
         self.__qtde_minimaestoque = qtde_minimaestoque
         self.__saldo_estoque = saldo_estoque
+        self.bib = Funcao_Global()
+
+    @property
+    def linha_produto(self):
+        return [{
+              'codigo': self.__codigo
+            , 'nome'  : self.__nome
+            , 'categoria': self.__categoria
+            , 'valor_unitario': self.bib.transforma_em_float(self.__valorunitario)
+            , 'qtde_minimaestoque': self.bib.transforma_em_int(self.__qtde_minimaestoque)
+            , 'saldo_estoque': self.bib.transforma_em_int(self.__saldo_estoque)
+        }]
 
     @property
     def codigo(self):
@@ -60,8 +73,8 @@ class Def_Produto():
     def validar_conteudo(self):
 
         msg = ''
-        if type(self.__codigo) != int and int(self.__codigo) <= 0:
-            msg = msg + '\nO código deve ser um número maior que zero'
+        if not self.__codigo or len(self.__codigo) == 0:
+            msg = msg + '\nO código deve ser preenchido'
 
         if not self.__nome or len(self.__nome) == 0:
             msg = msg + '\nO nome deve ser preenchido'
@@ -69,13 +82,15 @@ class Def_Produto():
         if not self.__categoria or len(self.__categoria) == 0:
             msg = msg + '\nA categoria deve ser preenchida'
         
-        if type(self.__valorunitario) != float and float(self.__valorunitario) > 0.00:
-            msg = msg + '\nO valor unitário deve ser um decimal maior que zero'
+        if not self.bib.eh_numero(self.__valorunitario):
+            msg = msg + f'\nO valor unitário deve ser um decimal'
+        elif not self.bib.transforma_em_float(self.__valorunitario) > 0.00:
+            msg = msg + '\nO valor unitário deve ser maior que zero'
 
-        if not self.__qtde_minimaestoque or len(self.__qtde_minimaestoque) >= 1:
+        if not self.bib.eh_numero(self.__qtde_minimaestoque) and not self.bib.transforma_em_int(self.__qtde_minimaestoque) > 0:
             msg = msg + '\nA quantidade mínima em estoque deve ser maior que zero'
 
-        if type(self.__saldo) != int or self.__saldo >= 0:
+        if not self.bib.eh_numero(self.__saldo_estoque) and not self.bib.ransforma_em_int(self.__saldo_estoque) > 0:
             msg = msg + '\nO saldo deve ser númerico maior que zero'
 
         return msg
@@ -86,7 +101,38 @@ class Def_Produto():
         print(f'Nome do Produto.......: {self.__nome}')
         print(f'Categoria.............: {self.__categoria}')
         print(f'Valor Unitário........: {self.__valorunitario}')
-        print(f'Local de Armazenamento: {self.__localarmazenamento}')
+        print(f'Qtde Mínima em Estoque: {self.__qtde_minimaestoque}')
+        print(f'Saldo em Estoque......: {self.__saldo_estoque}')
     
     def __str__(self):
         self.view(self)
+
+    def eh_numero(self, s):
+        if (s.startswith('-') or s.startswith('+') ):
+            s = s[1:]  # Remove o sinal para verificar o restante
+        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+
+        if '.' in s:
+            partes = s.split('.')
+            if len(partes) != 2 or not partes[0].isdigit() or not partes[1].isdigit():
+                return False
+        else:
+            if not s.isdigit():
+                return False
+        return True
+    # fim eh_numero
+
+    def transforma_em_float(self, s):
+        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+
+        return float(s)
+    # fim transforma_em_float
+
+    def transforma_em_int(self, s):
+        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+
+        return int(s)
+    # fim transforma_em_int
