@@ -7,19 +7,17 @@
 
 from definicoes_de_tabelas.def_movimentacao import Def_Movimentacao_Estoque
 from utils.bib import Funcao_Global
-from definicoes_de_tabelas.def_movimentacao import Def_Movimentacao_Estoque
-from utils.bib import Funcao_Global
-from definicoes_de_tabelas.def_produto import DefProduto
+from definicoes_de_tabelas.def_produto import Def_Produto
 from classes.log import Log  
 
-class Movimentacao:
+class Movimentacao():
     def __init__(self):
         self.__produtos = []  
         self.__log = Log()    
 
     def adicionar_produto(self, produto):
         """Adiciona um novo produto ao estoque."""
-        if isinstance(produto, DefProduto):
+        if isinstance(produto, Def_Produto):
             self.__produtos.append(produto)
             self.__log.registrar("ADICIONAR", f"Produto {produto.nome} (Código {produto.codigo}) adicionado ao estoque.")
         else:

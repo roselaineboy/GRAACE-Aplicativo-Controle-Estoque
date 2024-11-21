@@ -10,7 +10,7 @@ from configuracoes.config import Definicao
 
 from utils.bib import Funcao_Global
 from classes.produto import Produto
-from classes.movimentacao_estoque import Movimentacao_Estoque
+from classes.movimentacao_estoque import Movimentacao
 from classes.relatorio import Relatorio
 
 class Menu(Definicao):
@@ -19,7 +19,7 @@ class Menu(Definicao):
         self.__opcao_selecionada = opcao_selecionada
         self.fg = Funcao_Global()
         self.produto = Produto()
-        self.movimentacao = Movimentacao_Estoque()
+        self.movimentacao = Movimentacao()
         self.relatorio = Relatorio()
     # fim - init
 
@@ -42,11 +42,13 @@ class Menu(Definicao):
         print(len_row * '═')
     #Fim - exibir_menu
 
-
+    #==============================================================================
     def chamarlistagem():
         relatorio = Relatorio()
         relatorio.listar_abaixo_estoque_minimo()
+    #Fim - chamar listagem
 
+    #==============================================================================
     def exibir_solicitar_executar(self):
         option = ''
         msg_text = ''
@@ -87,4 +89,4 @@ class Menu(Definicao):
         print('=-' * 19)
         print(' ' * 8 + 'Obrigado volte sempre!')
         print('=-' * 19)
-    
+    #Fim exibir solicitar executar
