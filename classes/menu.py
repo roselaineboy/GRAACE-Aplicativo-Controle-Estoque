@@ -82,8 +82,9 @@ class Menu(Definicao):
                     self.relatorio.listar_abaixo_estoque_minimo()
                 elif option == '8':
                     self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
-                    print("Log de teste registrado!")
-                    input("Pressione <ENTER> para voltar ao menu.")
+                    #print("Log de teste registrado!")
+                    #input("Pressione <ENTER> para voltar ao menu.")
+                    self.movimentacao.listar_movimentacoes_produto_por_codigo()
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 
