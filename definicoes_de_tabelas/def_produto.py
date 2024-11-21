@@ -105,4 +105,4 @@ class Def_Produto():
         print(f'Saldo em Estoque......: {self.__saldo_estoque}')
     
     def __str__(self):
-        self.view(self)
+        self.view()

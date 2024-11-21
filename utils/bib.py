@@ -10,7 +10,6 @@ from IPython.display import clear_output
 import json
 import pandas as pd
 
-
 class Funcao_Global():
     
     def limpar_tela(self):
@@ -84,15 +83,17 @@ class Funcao_Global():
     # fim eh_numero
 
     def transforma_em_float(self, s):
-        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
-        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+        if isinstance(s, str):
+            s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+            s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
 
         return float(s)
     # fim transforma_em_float
 
     def transforma_em_int(self, s):
-        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
-        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+        if isinstance(s, str):
+            s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+            s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
 
         return int(s)
     # fim transforma_em_int

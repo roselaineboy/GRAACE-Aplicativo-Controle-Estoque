@@ -48,3 +48,34 @@ In�cio do log
 [2024-11-21 17:27:34] BUSCA - Buscando produto com c�digo A002
 [2024-11-21 17:28:22] BUSCA - Buscando produto para atualiza��o com c�digo 
 [2024-11-21 17:28:24] BUSCA - Buscando produto com c�digo A002
+[2024-11-21 22:27:33] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 22:30:31] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 22:31:26] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 23:06:39] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:07:30] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:08:15] Movimentacao do Estoque - Erro ao registrar modificação de estoque: name 'produto' is not defined
+[2024-11-21 23:08:28] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:16:52] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:19:19] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:19:26] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:20:12] Movimentacao do Estoque - Erro ao registrar modificação de estoque: name 'produto' is not defined
+[2024-11-21 23:20:22] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:20:39] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:22:55] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 23:23:00] BUSCA - Buscando produto com código A001
+[2024-11-21 23:31:57] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 23:32:00] BUSCA - Buscando produto com código A001
+[2024-11-21 23:34:20] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 23:34:24] BUSCA - Buscando produto com código A001
+[2024-11-21 23:34:48] ATUALIZAR - Produto A001 atualizado com sucesso.
+[2024-11-21 23:34:54] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:35:15] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:35:55] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:36:00] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:36:05] Movimentacao do Estoque - o produto :A001 teve uma entrada de 4
+[2024-11-21 23:36:15] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:36:27] LISTAR - Produtos listados com sucesso.
+[2024-11-21 23:45:09] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 23:45:13] BUSCA - Buscando produto com código A001
+[2024-11-21 23:45:26] ATUALIZAR - Produto A001 atualizado com sucesso.
+[2024-11-21 23:45:26] LISTAR - Produtos listados com sucesso.

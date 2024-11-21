@@ -4,17 +4,15 @@ from definicoes_de_tabelas.def_produto import Def_Produto
 from utils.bib import Funcao_Global
 from configuracoes.config import Definicao
 from classes.log import Log
-#from classes.movimentacao_estoque import Movimentacao
 
 class Produto():
     #==============================================================================
-    def __init__(self, codigo=''):
+    def __init__(self):
         self.__produto = Def_Produto()
         self.bib = Funcao_Global()
         self.definicao = Definicao()
-        #self.movimentacao = Movimentacao()
         self.__lista_produtos = pd.DataFrame([])
-        self.carrega_lista_produto(codigo)
+        self.carrega_lista_produto()
         self.log = Log()
     #Fim - init
 
@@ -22,6 +20,14 @@ class Produto():
     @property
     def produto_selecionado(self):
         return self.__produto
+
+    #==============================================================================
+    @property
+    def saldo_produto_selecionado(self):
+        return self.__produto.saldo_estoque
+    @saldo_produto_selecionado.setter
+    def saldo_produto_selecionado(self, saldo_estoque):
+        self.__produto.saldo_estoque = saldo_estoque
 
     #==============================================================================
     def carrega_lista_produto(self, codigo=''):
@@ -61,9 +67,9 @@ class Produto():
     # Fim - salva_lista_produto
 
     #==============================================================================
-    def buscar_produto_por_codigo(self, codigo="A001"):
+    def buscar_produto_por_codigo(self, codigo=""):
         # Buscar o produto pelo código
-        produto = self.__lista_produtos[self.__lista_produtos['codigo'].str.upper() == codigo.upper()]
+        produto = self.__lista_produtos[self.__lista_produtos['codigo'].str.upper() == codigo.upper()].copy()
         return produto
     # Fim buscar_produto_por_codigo
 
@@ -94,6 +100,16 @@ class Produto():
         self.__produto.qtde_minimaestoque = 0
         self.__produto.saldo_estoque = 0
     # Fim - limpar_produto
+
+    #==============================================================================
+    def atualizar_produto_na_lista(self):
+        # Atualiza os dados do produto no DataFrame
+        self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
+        self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
+        self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
+        self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
+        self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
+    # Fim - atualizar_produto_na_lista
 
     #==============================================================================
     def ver_produto(self):
@@ -143,8 +159,6 @@ class Produto():
                 if msg_validacao == "":
                     self.__lista_produtos = pd.concat([self.__lista_produtos, pd.DataFrame(self.__produto.linha_produto)], ignore_index=True)
 
-                    #self.movimentacao.registrar_movimentacao_estoque('entrada', self.__produto.saldo_estoque, self.__produto.linha_produto)
-
                     msg_validacao = self.salva_lista_produto()
                     if msg_validacao == "":
                         self.ver_produto()
@@ -160,9 +174,11 @@ class Produto():
 
         return
     # fim Cadastro Produto
-#==============================================================================    
+
+# Remover
 #=======================Andressa_passou_por_aki=======================================================
-   
+
+    #==============================================================================    
     def atualizar_produto(self):
         msg_validacao = 'Informe os dados do produto para atualização'  # Inicializa a variável antes de usar
     
@@ -190,14 +206,19 @@ class Produto():
                 msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
             else:
                 produto_atualizado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
-                print(f'Produto encontrado: {produto_atualizado["nome"]}')
-                print('Você pode atualizar os seguintes campos:')
+
+                self.preencher_produto(produtosencontrados)
+                self.ver_produto()
+
+                print('\nVocê pode atualizar os campos com novos conteúdos, e deixar em branco os que quiser manter o conteúdo atual:')
 
                 # Exibe os campos atuais e permite a alteração
                 nome_atualizado = input(f'Nome (atual: {produto_atualizado["nome"]}): ')
                 categoria_atualizada = input(f'Categoria (atual: {produto_atualizado["categoria"]}): ')
                 valor_unitario_atualizado = input(f'Valor Unitário (atual: {produto_atualizado["valor_unitario"]}): ')
                 qtde_minimaestoque_atualizada = input(f'Quantidade Mínima de Estoque (atual: {produto_atualizado["qtde_minimaestoque"]}): ')
+
+                # Corrigir: o saldo não deveria se alterado manualmente, aqui ele deveria apenas ser transportado da pesquisa para a gravação igualmente
                 # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
                 saldo_estoque_atualizado = input(f'Saldo de Estoque (atual: {produto_atualizado["saldo_estoque"]}): ')
 
@@ -214,11 +235,14 @@ class Produto():
 
                 if msg_validacao == "":  # Se não houver erros de validação
                     # Atualiza os dados do produto no DataFrame
-                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
-                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
-                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
-                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
-                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
+                    self.atualizar_produto_na_lista()
+                    # linhas de código transferidas para a função atualizar_produto...
+                    # Remover
+                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
+                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
+                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
+                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
+                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
 
                     # Salva os dados atualizados no arquivo JSON
                     msg_validacao = self.salva_lista_produto()  # Salva no arquivo
@@ -238,10 +262,18 @@ class Produto():
                         print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
                     else:
                         print('Erro ao atualizar o produto.')
+            self.listar_produtos()
+            # Fim if produto encontrado
+
+        # fim while
+
+    # Fim - atualizar produto
 
 
-    
+    # Remover
    #=======================Andressa_passou_por_aki=======================================================
+
+    #==============================================================================    
     def deletar_produto(self):
         msg_validacao = 'Informe o código do produto a ser deletado'  # Mensagem inicial de validação
     
@@ -304,12 +336,13 @@ class Produto():
 
         self.bib.limpar_tela()
         return
+    # Fim - remover produto
 
 
 
-    
+    # Remover
   #=======================Andressa_passou_por_aki=======================================================
-    
+    #==============================================================================    
     def listar_produtos(self):
         self.bib.limpar_tela()
         print(self.__lista_produtos)

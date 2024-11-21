@@ -64,19 +64,14 @@ class Movimentacao():
     #    self.__log.registrar("ERRO", f"Produto com código {codigo} não encontrado no estoque.")
 
     #==============================================================================
-    def registrar_movimentacao_estoque(self, tipo_operacao, qtde_movimentada, produto):
-        if tipo_operacao == "entrada":
-            saldo_final = int(produto.saldo_estoque) + int(qtde_movimentada)
-        else:
-            saldo_final = int(produto.saldo_estoque) - int(qtde_movimentada)
-       
+    def registrar_movimentacao_estoque(self, tipo_operacao, codigo, saldo_anterior, qtde_movimentada, saldo_final):
         modificacao = {
                         'data_movimentacao': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         'tipo_operacao': tipo_operacao,
-                        'codigo': produto.codigo,
-                        'saldo_anterior': str(produto.saldo_estoque),
-                        'qtde_movimentada': qtde_movimentada,
-                        'saldo_final': saldo_final
+                        'codigo': codigo,
+                        'saldo_anterior': str(saldo_anterior),
+                        'qtde_movimentada': str(qtde_movimentada),
+                        'saldo_final': str(saldo_final)
                       }
         
         arquivo_ok = ""
@@ -86,7 +81,7 @@ class Movimentacao():
                 with open(self.definicao.db_movimentacoes, 'a') as arquivo:
                     # Adicionar a linha de movimentação ao final do arquivo
                     arquivo.write(json.dumps(modificacao) + '\n')
-                self.__log.registrar("Movimentacao do Estoque", f"o produto :{produto.codigo} teve uma {tipo_operacao} de {qtde_movimentada}")
+                self.__log.registrar("Movimentacao do Estoque", f"o produto :{codigo} teve uma {tipo_operacao} de {qtde_movimentada}")
             except Exception as e:
                 print(f"Erro ao salvar modificação no estoque JSON: {e}")
                 input('...')
@@ -121,9 +116,11 @@ class Movimentacao():
     def listar_movimentacoes_produto_por_codigo(self):
         msg_validacao = 'Informe o produto'
         codigo = ''
+        prod = Produto()
 
         while msg_validacao != '' and codigo != '-1':
             self.bib.limpar_tela()
+            prod.limpar_produto()
 
             if len(msg_validacao) > 0:
                 print(msg_validacao)
@@ -131,7 +128,6 @@ class Movimentacao():
             print('Ps.: para desistir digite -1 no código do produto')
             codigo = input('Código: ')
 
-            prod = Produto(codigo)
             produto_encontrado = prod.buscar_produto_por_codigo(codigo)
 
             if not produto_encontrado.empty:
@@ -154,7 +150,7 @@ class Movimentacao():
                 self.bib.limpar_tela()
                 msg_validacao= 'Produto não encontrado'
 
-            del(prod)
+        del(prod)
 
 
     # Fim - listar_movimentacoes_produto_por_codigo
@@ -165,27 +161,39 @@ class Movimentacao():
         codigo = ''
         prod = Produto()
 
-        while msg_validacao != '' and codigo != '-1':
+        while msg_validacao != '' and codigo == '':
             self.bib.limpar_tela()
             prod.limpar_produto()
 
             if len(msg_validacao) > 0:
                 print(msg_validacao)
                 msg_validacao == ''
-            print('Ps.: para desistir digite -1 no código do produto')
+            print('Registrar movimentação de ENTRADA de saldo no estoque.')
+            print('Ps.: para voltar ao MENU deixe o código do produto vazio e pressione <ENTER>')
             codigo = input('Código: ')
 
-            produto_encontrado = prod.buscar_produto_por_codigo(codigo)
+            if codigo != '':
+                produto_encontrado = prod.buscar_produto_por_codigo(codigo)
 
-            if not produto_encontrado.empty:
-                prod.preencher_produto(produto_encontrado)
-                prod.ver_produto()
+                if not produto_encontrado.empty:
+                    prod.preencher_produto(produto_encontrado)
+                    prod.ver_produto()
 
-                qtde_movimentada = input('Informe a quantidade de entrada:')
+                    qtde_movimentada = input('Informe a quantidade de entrada:')
 
-                self.registrar_movimentacao_estoque('entrada', qtde_movimentada, prod.produto_selecionado)
-                print('Movimentação registrada')
-                input('...')
+                    saldo_anterior = prod.saldo_produto_selecionado
+                    saldo_final = float(saldo_anterior) + float(qtde_movimentada)
+
+                    prod.saldo_produto_selecionado = saldo_final
+                    prod.atualizar_produto_na_lista()
+
+                    self.registrar_movimentacao_estoque('entrada', codigo, saldo_anterior, qtde_movimentada, saldo_final)
+                    prod.salva_lista_produto()
+
+                    prod.listar_produtos()
+
+                    msg_validacao = 'Movimentação registrada com sucesso.'
+            # fim - if codigo informado
 
         del(prod)
 
