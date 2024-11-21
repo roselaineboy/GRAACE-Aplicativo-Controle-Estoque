@@ -1,0 +1,50 @@
+Início do log
+[2024-11-21 14:28:39] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:28:42] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:29:07] ADICIONAR - Produto A006 adicionado.
+[2024-11-21 14:29:14] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:29:27] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:33:22] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:33:41] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:33:49] LISTAR - Produtos listados com sucesso.
+[2024-11-21 14:34:02] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 14:34:05] BUSCA - Buscando produto com código A003
+[2024-11-21 15:45:49] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 15:46:26] LISTAR - Produtos listados com sucesso.
+[2024-11-21 15:46:34] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 15:53:59] LISTAR - Produtos listados com sucesso.
+[2024-11-21 15:55:04] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 15:55:45] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 15:57:10] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 16:03:49] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-21 16:44:50] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Object of type int64 is not JSON serializable
+[2024-11-21 16:47:29] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Object of type int64 is not JSON serializable
+[2024-11-21 16:48:57] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Object of type int64 is not JSON serializable
+[2024-11-21 16:49:59] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Object of type int64 is not JSON serializable
+[2024-11-21 16:56:59] LISTAR - Produtos listados com sucesso.
+[2024-11-21 16:57:03] LISTAR - Produtos listados com sucesso.
+[2024-11-21 17:01:56] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Object of type int64 is not JSON serializable
+[2024-11-21 17:03:23] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Log.registrar() missing 1 required positional argument: 'mensagem'
+[2024-11-21 17:06:46] Movimentacao do Estoque - Erro ao registrar modificação de estoque: Log.registrar() missing 1 required positional argument: 'mensagem'
+[2024-11-21 17:08:08] Movimentacao do Estoque - o produto :A001 teve uma entrada de 10
+[2024-11-21 17:10:23] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:10:26] BUSCA - Buscando produto com código A002
+[2024-11-21 17:10:57] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:11:01] BUSCA - Buscando produto com código A002
+[2024-11-21 17:13:09] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:13:12] BUSCA - Buscando produto com código A002
+[2024-11-21 17:14:28] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:14:30] BUSCA - Buscando produto com código A002
+[2024-11-21 17:14:54] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:14:59] BUSCA - Buscando produto com código A003
+[2024-11-21 17:15:08] ATUALIZAR - Produto A003 atualizado com sucesso.
+[2024-11-21 17:15:13] LISTAR - Produtos listados com sucesso.
+[2024-11-21 17:21:15] Movimentacao do Estoque - o produto :A002 teve uma entrada de 10
+[2024-11-21 17:21:24] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:21:28] BUSCA - Buscando produto com código A002
+[2024-11-21 17:25:56] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:26:00] BUSCA - Buscando produto com código A003
+[2024-11-21 17:27:32] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:27:34] BUSCA - Buscando produto com código A002
+[2024-11-21 17:28:22] BUSCA - Buscando produto para atualização com código 
+[2024-11-21 17:28:24] BUSCA - Buscando produto com código A002

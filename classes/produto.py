@@ -1,32 +1,50 @@
 import pandas as pd
 import json
-
 from definicoes_de_tabelas.def_produto import Def_Produto
 from utils.bib import Funcao_Global
 from configuracoes.config import Definicao
 from classes.log import Log
+#from classes.movimentacao_estoque import Movimentacao
 
 class Produto():
     #==============================================================================
-    def __init__(self):
+    def __init__(self, codigo=''):
         self.__produto = Def_Produto()
         self.bib = Funcao_Global()
         self.definicao = Definicao()
+        #self.movimentacao = Movimentacao()
         self.__lista_produtos = pd.DataFrame([])
-        self.carrega_lista_produto()
+        self.carrega_lista_produto(codigo)
         self.log = Log()
     #Fim - init
 
     #==============================================================================
-    def carrega_lista_produto(self):
+    @property
+    def produto_selecionado(self):
+        return self.__produto
+
+    #==============================================================================
+    def carrega_lista_produto(self, codigo=''):
         caminho_arquivo = self.definicao.db_produtos
         arquivo_ok = self.bib.verifica_arquivo(caminho_arquivo)
 
         if arquivo_ok == '':
-            dados = pd.read_json(caminho_arquivo)
-            if not dados.empty:
-                # Converte os dados para um DataFrame do pandas
-                self.__lista_produtos = pd.DataFrame(dados)
+            # se não for informado um codigo, leremos o arquivo inteiro
+            if codigo == '':
+                dados = pd.read_json(caminho_arquivo)
+                if not dados.empty:
+                    # Converte os dados para um DataFrame do pandas
+                    self.__lista_produtos = pd.DataFrame(dados)
+            else:
+                #se for informado um codigo, já leremos apenas as linhas do codigo enviado
+                with open(caminho_arquivo, 'r') as f:
+                    dados_filtrados = [
+                        json.loads(linha)
+                        for linha in f
+                        if json.loads(linha)['codigo'].upper() == codigo.upper()
+                    ]
+                self.__lista_produtos = pd.DataFrame(dados_filtrados)
+
     # fim - carrega_lista_produto
 
     #==============================================================================
@@ -51,12 +69,20 @@ class Produto():
 
     #==============================================================================
     def preencher_produto(self, produto):
-        self.__produto.codigo = produto['codigo'][0]
-        self.__produto.nome = produto['nome'][0]
-        self.__produto.categoria = produto['categoria'][0]
-        self.__produto.valorunitario = produto['valor_unitario'][0]
-        self.__produto.qtde_minimaestoque = produto['qtde_minimaestoque'][0]
-        self.__produto.saldo_estoque = produto['saldo_estoque'][0]
+        if isinstance(produto, pd.DataFrame):
+            self.__produto.codigo = produto.iloc[0].codigo
+            self.__produto.nome = produto.iloc[0].nome
+            self.__produto.categoria = produto.iloc[0].categoria
+            self.__produto.valorunitario = produto.iloc[0].valor_unitario
+            self.__produto.qtde_minimaestoque = produto.iloc[0].qtde_minimaestoque
+            self.__produto.saldo_estoque = produto.iloc[0].saldo_estoque
+        else:
+            self.__produto.codigo = produto['codigo'][0]
+            self.__produto.nome = produto['nome'][0]
+            self.__produto.categoria = produto['categoria'][0]
+            self.__produto.valorunitario = produto['valor_unitario'][0]
+            self.__produto.qtde_minimaestoque = produto['qtde_minimaestoque'][0]
+            self.__produto.saldo_estoque = produto['saldo_estoque'][0]
     # Fim - preencher_produto
 
     #==============================================================================
@@ -116,6 +142,9 @@ class Produto():
                 msg_validacao = self.__produto.validar_conteudo()
                 if msg_validacao == "":
                     self.__lista_produtos = pd.concat([self.__lista_produtos, pd.DataFrame(self.__produto.linha_produto)], ignore_index=True)
+
+                    #self.movimentacao.registrar_movimentacao_estoque('entrada', self.__produto.saldo_estoque, self.__produto.linha_produto)
+
                     msg_validacao = self.salva_lista_produto()
                     if msg_validacao == "":
                         self.ver_produto()
@@ -146,66 +175,69 @@ class Produto():
 
             print('Ps.: para desistir digite -1 no código do produto e deixe os demais campos em branco')
 
-        self.limpar_produto()
-        self.log.registrar("BUSCA", f"Buscando produto para atualização com código {self.__produto.codigo}")
-        self.__produto.codigo = input('Código do produto a ser atualizado: ')
+            self.limpar_produto()
+            self.log.registrar("BUSCA", f"Buscando produto para atualização com código {self.__produto.codigo}")
+            self.__produto.codigo = input('Código do produto a ser atualizado: ')
 
-        # Buscar o produto pelo código
-        produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
-        self.log.registrar("BUSCA", f"Buscando produto com código {self.__produto.codigo}")
-        
-        if produtosencontrados.empty:
-            print('Produto não encontrado.')
-            print('<ENTER> para tentar outro código')
-            input('...')
-            msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
-        else:
-            produto_atualizado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
-            print(f'Produto encontrado: {produto_atualizado["nome"]}')
-            print('Você pode atualizar os seguintes campos:')
+            # Buscar o produto pelo código
+            produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
+            self.log.registrar("BUSCA", f"Buscando produto com código {self.__produto.codigo}")
 
-            # Exibe os campos atuais e permite a alteração
-            nome_atualizado = input(f'Nome (atual: {produto_atualizado["nome"]}): ')
-            categoria_atualizada = input(f'Categoria (atual: {produto_atualizado["categoria"]}): ')
-            valor_unitario_atualizado = input(f'Valor Unitário (atual: {produto_atualizado["valor_unitario"]}): ')
-            qtde_minimaestoque_atualizada = input(f'Quantidade Mínima de Estoque (atual: {produto_atualizado["qtde_minimaestoque"]}): ')
-            saldo_estoque_atualizado = input(f'Saldo de Estoque (atual: {produto_atualizado["saldo_estoque"]}): ')
+            if produtosencontrados.empty:
+                print('Produto não encontrado.')
+                print('<ENTER> para tentar outro código')
+                input('...')
+                msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
+            else:
+                produto_atualizado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
+                print(f'Produto encontrado: {produto_atualizado["nome"]}')
+                print('Você pode atualizar os seguintes campos:')
 
-            # Se o usuário deixar os campos em branco, manterá o valor atual
-            self.__produto.nome = nome_atualizado if nome_atualizado else produto_atualizado['nome']
-            self.__produto.categoria = categoria_atualizada if categoria_atualizada else produto_atualizado['categoria']
-            self.__produto.valorunitario = valor_unitario_atualizado if valor_unitario_atualizado else produto_atualizado['valor_unitario']
-            self.__produto.qtde_minimaestoque = qtde_minimaestoque_atualizada if qtde_minimaestoque_atualizada else produto_atualizado['qtde_minimaestoque']
-            self.__produto.saldo_estoque = saldo_estoque_atualizado if saldo_estoque_atualizado else produto_atualizado['saldo_estoque']
+                # Exibe os campos atuais e permite a alteração
+                nome_atualizado = input(f'Nome (atual: {produto_atualizado["nome"]}): ')
+                categoria_atualizada = input(f'Categoria (atual: {produto_atualizado["categoria"]}): ')
+                valor_unitario_atualizado = input(f'Valor Unitário (atual: {produto_atualizado["valor_unitario"]}): ')
+                qtde_minimaestoque_atualizada = input(f'Quantidade Mínima de Estoque (atual: {produto_atualizado["qtde_minimaestoque"]}): ')
+                # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
+                saldo_estoque_atualizado = input(f'Saldo de Estoque (atual: {produto_atualizado["saldo_estoque"]}): ')
 
-            msg_validacao = self.__produto.validar_conteudo()  # Validação do conteúdo do produto
-            
-            if msg_validacao == "":  # Se não houver erros de validação
-                # Atualiza os dados do produto no DataFrame
-                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
-                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
-                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
-                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
-                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
-                
-                # Salva os dados atualizados no arquivo JSON
-                msg_validacao = self.salva_lista_produto()  # Salva no arquivo
-                if msg_validacao == "":
-                    produto_atualizado_data = {
-                        'codigo': self.__produto.codigo,
-                        'nome': self.__produto.nome,
-                        'categoria': self.__produto.categoria,
-                        'valor_unitario': self.__produto.valorunitario,
-                        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
-                        'saldo_estoque': self.__produto.saldo_estoque
-                    }
-                    
-                    # Registrar a modificação no log
-                    self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado_data)
-                    self.log.registrar("ATUALIZAR", f"Produto {self.__produto.codigo} atualizado com sucesso.")
-                    print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
-                else:
-                    print('Erro ao atualizar o produto.')
+                # Se o usuário deixar os campos em branco, manterá o valor atual
+                self.__produto.nome = nome_atualizado if nome_atualizado else produto_atualizado['nome']
+                self.__produto.categoria = categoria_atualizada if categoria_atualizada else produto_atualizado['categoria']
+                self.__produto.valorunitario = valor_unitario_atualizado if valor_unitario_atualizado else produto_atualizado['valor_unitario']
+                self.__produto.qtde_minimaestoque = qtde_minimaestoque_atualizada if qtde_minimaestoque_atualizada else produto_atualizado['qtde_minimaestoque']
+                # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
+                self.__produto.saldo_estoque = saldo_estoque_atualizado if saldo_estoque_atualizado else produto_atualizado['saldo_estoque']
+                #self.__produto.saldo_estoque = produto_atualizado["saldo_estoque"]
+
+                msg_validacao = self.__produto.validar_conteudo()  # Validação do conteúdo do produto
+
+                if msg_validacao == "":  # Se não houver erros de validação
+                    # Atualiza os dados do produto no DataFrame
+                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
+                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
+                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
+                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
+                    self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
+
+                    # Salva os dados atualizados no arquivo JSON
+                    msg_validacao = self.salva_lista_produto()  # Salva no arquivo
+                    if msg_validacao == "":
+                        produto_atualizado_data = {
+                            'codigo': self.__produto.codigo,
+                            'nome': self.__produto.nome,
+                            'categoria': self.__produto.categoria,
+                            'valor_unitario': self.__produto.valorunitario,
+                            'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
+                            'saldo_estoque': self.__produto.saldo_estoque
+                        }
+
+                        # Registrar a modificação no log
+                        #self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado_data)
+                        self.log.registrar("ATUALIZAR", f"Produto {self.__produto.codigo} atualizado com sucesso.")
+                        print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
+                    else:
+                        print('Erro ao atualizar o produto.')
 
 
     
@@ -282,6 +314,6 @@ class Produto():
         self.bib.limpar_tela()
         print(self.__lista_produtos)
         self.log.registrar("LISTAR", "Produtos listados com sucesso.")
-    print('Pressione <ENTER> para para voltar ao menu')
-    input('...')
+        print('Pressione <ENTER> para para voltar ao menu')
+        input('...')
     # Fim - listar_produto

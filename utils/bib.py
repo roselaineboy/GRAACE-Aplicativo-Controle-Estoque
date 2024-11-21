@@ -65,18 +65,21 @@ class Funcao_Global():
     # fim - verifica_arquivo
 
     def eh_numero(self, s):
-        if (s.startswith('-') or s.startswith('+') ):
-            s = s[1:]  # Remove o sinal para verificar o restante
-        s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
-        s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
+        if isinstance(s, str):
+            if (s.startswith('-') or s.startswith('+') ):
+                s = s[1:]  # Remove o sinal para verificar o restante
+            s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
+            s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
 
-        if '.' in s:
-            partes = s.split('.')
-            if len(partes) != 2 or not partes[0].isdigit() or not partes[1].isdigit():
-                return False
-        else:
-            if not s.isdigit():
-                return False
+            if '.' in s:
+                partes = s.split('.')
+                if len(partes) != 2 or not partes[0].isdigit() or not partes[1].isdigit():
+                    return False
+            else:
+                if not s.isdigit():
+                    return False
+        elif isinstance(s, (int, float)):
+            return True                
         return True
     # fim eh_numero
 

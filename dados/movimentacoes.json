@@ -1,38 +1,4 @@
-[
-    {
-      "id": 1,
-      "codigo": "CODE001",
-      "descricao": "TECLADO",
-      "quantidade": 4,
-      "minimo": 5
-    },
-    {
-      "id": 2,
-      "codigo": "CODE002",
-      "descricao": "MOUSE",
-      "quantidade": 7,
-      "minimo": 10
-    },
-    {
-      "id": 3,
-      "codigo": "CODE003",
-      "descricao": "MONITOR",
-      "quantidade": 14,
-      "minimo": 2
-    },
-    {
-      "id": 4,
-      "codigo": "CODE004",
-      "descricao": "FONE DE OUVIDO",
-      "quantidade": 6,
-      "minimo": 2
-    },
-    {
-      "id": 5,
-      "codigo": "CODE005",
-      "descricao": "NOTEBOOK",
-      "quantidade": 5,
-      "minimo": 2
-    }
-  ]
-  
+{"data_movimentacao": "2024-11-21 17:03:09", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
+{"data_movimentacao": "2024-11-21 17:04:50", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
+{"data_movimentacao": "2024-11-21 17:08:08", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
+{"data_movimentacao": "2024-11-21 17:21:15", "tipo_operacao": "entrada", "codigo": "A002", "saldo_anterior": "10", "qtde_movimentada": "10", "saldo_final": 20}
