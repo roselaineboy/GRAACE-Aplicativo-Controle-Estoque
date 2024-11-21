@@ -4,6 +4,7 @@ import json
 from definicoes_de_tabelas.def_produto import Def_Produto
 from utils.bib import Funcao_Global
 from configuracoes.config import Definicao
+from classes.log import Log
 
 class Produto():
     #==============================================================================
@@ -13,6 +14,7 @@ class Produto():
         self.definicao = Definicao()
         self.__lista_produtos = pd.DataFrame([])
         self.carrega_lista_produto()
+        self.log = Log()
     #Fim - init
 
     #==============================================================================
@@ -36,6 +38,7 @@ class Produto():
                 self.__lista_produtos.to_json(caminho_arquivo, orient='records', indent=4)
         except Exception as e:
             msg_retorno = f"Erro ao salvar o arquivo: {e}"
+            self.log.registrar_erro(msg_retorno)
         return msg_retorno
     # Fim - salva_lista_produto
 
@@ -122,27 +125,68 @@ class Produto():
                             msg_validacao = ''
                         else:
                             msg_validacao = 'Informe os dados do produto'
+ #=======================Andressa_passou_por_aki=======================================================                            
+                            produto_data = {
+                        'codigo': self.__produto.codigo,
+                        'nome': self.__produto.nome,
+                        'categoria': self.__produto.categoria,
+                        'valor_unitario': self.__produto.valorunitario,
+                        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
+                        'saldo_estoque': self.__produto.saldo_estoque
+                    }
+                    # Chamando o método para registrar a modificação
+                    self.log.registrar_modificacao_estoque('Adicionar', produto_data)
+#=======================Andressa_passou_por_aki=======================================================
+#==============================================================================                    
         # fim - while
         self.bib.limpar_tela()
 
         return
     # fim Cadastro Produto
+#==============================================================================    
 
-    #==============================================================================
+   #=======================Andressa_passou_por_aki=======================================================
     def atualizar_produto(self):
         print('executou atualizar_produto')
+        produto_atualizado = {
+        'codigo': self.__produto.codigo,
+        'nome': self.__produto.nome,
+        'categoria': self.__produto.categoria,
+        'valor_unitario': self.__produto.valorunitario,
+        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
+        'saldo_estoque': self.__produto.saldo_estoque
+    }
+
+    # Registrar no log de modificações
+        self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado)
+        self.log.registrar("ATUALIZAR", "Produto atualizado com sucesso.")
+
 
     # Fim - atualizar_produto
 
-    #==============================================================================
+   #=======================Andressa_passou_por_aki=======================================================
+   #==============================================================================
     def deletar_produto(self):
         print('executou deletar_produto')
+        produto_deletado = {
+        'codigo': self.__produto.codigo,
+        'nome': self.__produto.nome,
+        'categoria': self.__produto.categoria,
+        'valor_unitario': self.__produto.valorunitario,
+        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
+        'saldo_estoque': self.__produto.saldo_estoque
+    }
+
+    # Registrar no log de modificações
+        self.log.registrar_modificacao_estoque('Remover', produto_deletado)
+        self.log.registrar("DELETAR", "Produto deletado com sucesso.")
     # Fim - deletar_produto
 
     #==============================================================================
     def listar_produtos(self):
         self.bib.limpar_tela()
         print(self.__lista_produtos)
-        print('Pressione <ENTER> para para voltar ao menu')
-        input('...')
+        self.log.registrar("LISTAR", "Produtos listados com sucesso.")
+    print('Pressione <ENTER> para para voltar ao menu')
+    input('...')
     # Fim - listar_produto
