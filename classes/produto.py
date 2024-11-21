@@ -109,7 +109,7 @@ class Produto():
                 self.__produto.valorunitario = input('Valor Unitário: ')
                 self.__produto.qtde_minimaestoque = input('Quantidade Minima de Estoque: ')
                 self.__produto.saldo_estoque = input('Saldo Inicial do Estoque: ')
-            
+                self.log.registrar("ADICIONAR", f"Produto {self.__produto.codigo} adicionado.")
             if self.__produto.codigo == '-1':
                 msg_validacao = ''
             elif not produto_existe:
@@ -125,8 +125,73 @@ class Produto():
                             msg_validacao = ''
                         else:
                             msg_validacao = 'Informe os dados do produto'
- #=======================Andressa_passou_por_aki=======================================================                            
-                            produto_data = {
+                    
+        # fim - while
+        self.bib.limpar_tela()
+
+        return
+    # fim Cadastro Produto
+#==============================================================================    
+#=======================Andressa_passou_por_aki=======================================================
+   
+    def atualizar_produto(self):
+        msg_validacao = 'Informe os dados do produto para atualização'  # Inicializa a variável antes de usar
+    
+        while msg_validacao != '':  # A condição de repetição
+            self.bib.limpar_tela()
+
+            if len(msg_validacao) > 0:
+                print(msg_validacao)
+                msg_validacao = ''  # Reinicializa a mensagem de validação
+
+            print('Ps.: para desistir digite -1 no código do produto e deixe os demais campos em branco')
+
+        self.limpar_produto()
+        self.log.registrar("BUSCA", f"Buscando produto para atualização com código {self.__produto.codigo}")
+        self.__produto.codigo = input('Código do produto a ser atualizado: ')
+
+        # Buscar o produto pelo código
+        produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
+        self.log.registrar("BUSCA", f"Buscando produto com código {self.__produto.codigo}")
+        
+        if produtosencontrados.empty:
+            print('Produto não encontrado.')
+            print('<ENTER> para tentar outro código')
+            input('...')
+            msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
+        else:
+            produto_atualizado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
+            print(f'Produto encontrado: {produto_atualizado["nome"]}')
+            print('Você pode atualizar os seguintes campos:')
+
+            # Exibe os campos atuais e permite a alteração
+            nome_atualizado = input(f'Nome (atual: {produto_atualizado["nome"]}): ')
+            categoria_atualizada = input(f'Categoria (atual: {produto_atualizado["categoria"]}): ')
+            valor_unitario_atualizado = input(f'Valor Unitário (atual: {produto_atualizado["valor_unitario"]}): ')
+            qtde_minimaestoque_atualizada = input(f'Quantidade Mínima de Estoque (atual: {produto_atualizado["qtde_minimaestoque"]}): ')
+            saldo_estoque_atualizado = input(f'Saldo de Estoque (atual: {produto_atualizado["saldo_estoque"]}): ')
+
+            # Se o usuário deixar os campos em branco, manterá o valor atual
+            self.__produto.nome = nome_atualizado if nome_atualizado else produto_atualizado['nome']
+            self.__produto.categoria = categoria_atualizada if categoria_atualizada else produto_atualizado['categoria']
+            self.__produto.valorunitario = valor_unitario_atualizado if valor_unitario_atualizado else produto_atualizado['valor_unitario']
+            self.__produto.qtde_minimaestoque = qtde_minimaestoque_atualizada if qtde_minimaestoque_atualizada else produto_atualizado['qtde_minimaestoque']
+            self.__produto.saldo_estoque = saldo_estoque_atualizado if saldo_estoque_atualizado else produto_atualizado['saldo_estoque']
+
+            msg_validacao = self.__produto.validar_conteudo()  # Validação do conteúdo do produto
+            
+            if msg_validacao == "":  # Se não houver erros de validação
+                # Atualiza os dados do produto no DataFrame
+                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
+                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
+                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
+                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
+                self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
+                
+                # Salva os dados atualizados no arquivo JSON
+                msg_validacao = self.salva_lista_produto()  # Salva no arquivo
+                if msg_validacao == "":
+                    produto_atualizado_data = {
                         'codigo': self.__produto.codigo,
                         'nome': self.__produto.nome,
                         'categoria': self.__produto.categoria,
@@ -134,55 +199,85 @@ class Produto():
                         'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
                         'saldo_estoque': self.__produto.saldo_estoque
                     }
-                    # Chamando o método para registrar a modificação
-                    self.log.registrar_modificacao_estoque('Adicionar', produto_data)
-#=======================Andressa_passou_por_aki=======================================================
-#==============================================================================                    
-        # fim - while
-        self.bib.limpar_tela()
+                    
+                    # Registrar a modificação no log
+                    self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado_data)
+                    self.log.registrar("ATUALIZAR", f"Produto {self.__produto.codigo} atualizado com sucesso.")
+                    print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
+                else:
+                    print('Erro ao atualizar o produto.')
 
-        return
-    # fim Cadastro Produto
-#==============================================================================    
 
+    
    #=======================Andressa_passou_por_aki=======================================================
-    def atualizar_produto(self):
-        print('executou atualizar_produto')
-        produto_atualizado = {
-        'codigo': self.__produto.codigo,
-        'nome': self.__produto.nome,
-        'categoria': self.__produto.categoria,
-        'valor_unitario': self.__produto.valorunitario,
-        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
-        'saldo_estoque': self.__produto.saldo_estoque
-    }
-
-    # Registrar no log de modificações
-        self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado)
-        self.log.registrar("ATUALIZAR", "Produto atualizado com sucesso.")
-
-
-    # Fim - atualizar_produto
-
-   #=======================Andressa_passou_por_aki=======================================================
-   #==============================================================================
     def deletar_produto(self):
-        print('executou deletar_produto')
-        produto_deletado = {
-        'codigo': self.__produto.codigo,
-        'nome': self.__produto.nome,
-        'categoria': self.__produto.categoria,
-        'valor_unitario': self.__produto.valorunitario,
-        'qtde_minimaestoque': self.__produto.qtde_minimaestoque,
-        'saldo_estoque': self.__produto.saldo_estoque
-    }
+        msg_validacao = 'Informe o código do produto a ser deletado'  # Mensagem inicial de validação
+    
+        while msg_validacao != '':  # A condição de repetição
+            self.bib.limpar_tela()
 
-    # Registrar no log de modificações
-        self.log.registrar_modificacao_estoque('Remover', produto_deletado)
-        self.log.registrar("DELETAR", "Produto deletado com sucesso.")
-    # Fim - deletar_produto
+            if len(msg_validacao) > 0:
+                print(msg_validacao)
+                msg_validacao = ''  # Reinicializa a mensagem de validação
 
-    #==============================================================================
+            print('Ps.: para desistir digite -1 no código do produto e deixe os demais campos em branco')
+
+            self.limpar_produto()
+            self.__produto.codigo = input('Código do produto a ser deletado: ')
+
+            # Se o código for '-1', interrompe a operação
+            if self.__produto.codigo == '-1':
+                print('Operação de deletação cancelada.')
+            return
+        
+        # Buscar o produto pelo código
+        produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
+
+        if produtosencontrados.empty:
+            print('Produto não encontrado.')
+            print('<ENTER> para tentar outro código')
+            input('...')
+            msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
+        else:
+            produto_deletado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
+            print(f'Produto encontrado: {produto_deletado["nome"]}')
+            confirmacao = input('Tem certeza que deseja deletar este produto? (S/N): ')
+
+            if confirmacao.upper() == 'S':
+                # Deleta o produto da lista
+                self.__lista_produtos = self.__lista_produtos[self.__lista_produtos['codigo'] != self.__produto.codigo]
+                
+                # Salva a lista atualizada no arquivo JSON
+                msg_validacao = self.salva_lista_produto()  # Salva no arquivo
+                
+                if msg_validacao == "":
+                    produto_deletado_data = {
+                        'codigo': produto_deletado['codigo'],
+                        'nome': produto_deletado['nome'],
+                        'categoria': produto_deletado['categoria'],
+                        'valor_unitario': produto_deletado['valor_unitario'],
+                        'qtde_minimaestoque': produto_deletado['qtde_minimaestoque'],
+                        'saldo_estoque': produto_deletado['saldo_estoque']
+                    }
+                    
+                    # Registrar a modificação no log
+                    self.log.registrar_modificacao_estoque('Remover', produto_deletado_data)
+                    self.log.registrar("DELETAR", f"Produto {self.__produto.codigo} deletado com sucesso.")
+                    print(f'Produto {self.__produto.codigo} deletado com sucesso!')
+                else:
+                    print('Erro ao deletar o produto.')
+            else:
+                print('Operação de deletação cancelada.')
+                msg_validacao = ''  # Cancela a operação, mas reinicia a busca
+
+        self.bib.limpar_tela()
+        return
+
+
+
+    
+  #=======================Andressa_passou_por_aki=======================================================
+    
     def listar_produtos(self):
         self.bib.limpar_tela()
         print(self.__lista_produtos)
