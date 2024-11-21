@@ -12,6 +12,7 @@ from utils.bib import Funcao_Global
 from classes.produto import Produto
 from classes.movimentacao_estoque import Movimentacao
 from classes.relatorio import Relatorio
+from classes.log import Log
 
 class Menu(Definicao):
     #==============================================================================
@@ -21,6 +22,7 @@ class Menu(Definicao):
         self.produto = Produto()
         self.movimentacao = Movimentacao()
         self.relatorio = Relatorio()
+        self.log = Log()
     # fim - init
 
     #==============================================================================
@@ -37,7 +39,7 @@ class Menu(Definicao):
         print("5 - Entrada de Estoque")
         print("6 - Saída de Estoque")
         print("7 - Listar Produtos Abaixo do Estoque Mínimo")
-        print('8 - teste')
+        print('8 - Teste de Log')
         print("0 - Sair")
         print(len_row * '═')
     #Fim - exibir_menu
@@ -79,7 +81,9 @@ class Menu(Definicao):
                 elif option == '7':
                     self.relatorio.listar_abaixo_estoque_minimo()
                 elif option == '8':
-                    self.produto.buscar_produto_por_codigo("A002")
+                    self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
+                    print("Log de teste registrado!")
+                    input("Pressione <ENTER> para voltar ao menu.")
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 
@@ -90,3 +94,4 @@ class Menu(Definicao):
         print(' ' * 8 + 'Obrigado volte sempre!')
         print('=-' * 19)
     #Fim exibir solicitar executar
+    

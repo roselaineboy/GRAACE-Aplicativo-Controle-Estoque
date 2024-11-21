@@ -1,47 +1,23 @@
-import json
-from datetime import datetime
 import os
+from datetime import datetime
 
 class Log:
-    def __init__(self, log_file="log.json"):
-        """Inicializa o sistema de logs com o arquivo especificado."""
-        self.log_file = log_file
-       
-        if not os.path.exists(self.log_file):
-            with open(self.log_file, "w") as file:
-                json.dump([], file)
+    def __init__(self):
+        # Defina o caminho do arquivo de log
+        self.arquivo_log = 'log.txt'  # Caminho relativo, você pode usar um caminho absoluto
+        self.criar_arquivo_log()  # Cria o arquivo de log se não existir
+
+    def criar_arquivo_log(self):
+        # Cria o arquivo de log se ele não existir
+        if not os.path.exists(self.arquivo_log):
+            with open(self.arquivo_log, 'w') as f:
+                f.write("Início do log\n")  # Escreve uma linha de início no arquivo
 
     def registrar(self, acao, mensagem):
-        """Registra uma ação ou erro no log."""
-        registro = {
-            "data_hora": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "acao": acao,
-            "mensagem": mensagem
-        }
-        
-        with open(self.log_file, "r") as file:
-            logs = json.load(file)
-
-       
-        logs.append(registro)
-
-      
-        with open(self.log_file, "w") as file:
-            json.dump(logs, file, indent=4)
-
-    def exibir_logs(self):
-        """Exibe todos os logs registrados."""
-        if not os.path.exists(self.log_file):
-            print("Nenhum log encontrado.")
-            return
-        
-        with open(self.log_file, "r") as file:
-            logs = json.load(file)
-
-        if not logs:
-            print("Nenhum log registrado.")
-            return
-
-        print("=== Logs Registrados ===")
-        for log in logs:
-            print(f"[{log['data_hora']}] {log['acao']}: {log['mensagem']}")
+        try:
+            data_hora_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            log_message = f"[{data_hora_atual}] {acao} - {mensagem}\n"
+            with open(self.arquivo_log, 'a') as f:  # Abre em modo 'a' para adicionar ao arquivo
+                f.write(log_message)
+        except Exception as e:
+            print(f"Erro ao registrar no log: {e}")
