@@ -39,7 +39,7 @@ class Relatorio():
         self.carrega_lista_produto()
 
         if not self.__lista_produtos.empty:
-            produtos_baixo_estoque = self.__lista_produtos[ (self.__lista_produtos['saldo_estoque'] <= self.__lista_produtos['qtde_minimaestoque']) | 
+            produtos_baixo_estoque = self.__lista_produtos[ (self.__lista_produtos['saldo_estoque'] < self.__lista_produtos['qtde_minimaestoque']) | 
                                                             (self.__lista_produtos['saldo_estoque'] == 0)
                                                           ].copy()
             if imprimir_mesmo_que_vazio or not produtos_baixo_estoque.empty:
