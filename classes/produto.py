@@ -1,3 +1,11 @@
+#Programa desenvolvido por Gabriel. Andressa e Roselaine
+#Data de Criação: 22/11/2024
+#Curso: Pós Graduação em Ciência de Dados - FACENS
+#Disciplina: Python
+#Atividade: Trabalho Final
+#Docente: Adriano V. S. da Silva
+
+
 import pandas as pd
 import json
 from definicoes_de_tabelas.def_produto import Def_Produto
@@ -51,7 +59,7 @@ class Produto():
                     ]
                 self.__lista_produtos = pd.DataFrame(dados_filtrados)
 
-    # fim - carrega_lista_produto
+    # Fim - carrega_lista_produto
 
     #==============================================================================
     def salva_lista_produto(self):
@@ -71,7 +79,7 @@ class Produto():
         # Buscar o produto pelo código
         produto = self.__lista_produtos[self.__lista_produtos['codigo'].str.upper() == codigo.upper()].copy()
         return produto
-    # Fim buscar_produto_por_codigo
+    # Fim - buscar_produto_por_codigo
 
     #==============================================================================
     def preencher_produto(self, produto):
@@ -173,10 +181,7 @@ class Produto():
         self.bib.limpar_tela()
 
         return
-    # fim Cadastro Produto
-
-# Remover
-#=======================Andressa_passou_por_aki=======================================================
+    # Fim - Cadastro Produto
 
     #==============================================================================    
     def atualizar_produto(self):
@@ -236,13 +241,6 @@ class Produto():
                 if msg_validacao == "":  # Se não houver erros de validação
                     # Atualiza os dados do produto no DataFrame
                     self.atualizar_produto_na_lista()
-                    # linhas de código transferidas para a função atualizar_produto...
-                    # Remover
-                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'nome'] = self.__produto.nome
-                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'categoria'] = self.__produto.categoria
-                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'valor_unitario'] = self.__produto.valorunitario
-                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'qtde_minimaestoque'] = self.__produto.qtde_minimaestoque
-                    #self.__lista_produtos.loc[self.__lista_produtos['codigo'] == self.__produto.codigo, 'saldo_estoque'] = self.__produto.saldo_estoque
 
                     # Salva os dados atualizados no arquivo JSON
                     msg_validacao = self.salva_lista_produto()  # Salva no arquivo
@@ -257,7 +255,6 @@ class Produto():
                         }
 
                         # Registrar a modificação no log
-                        #self.log.registrar_modificacao_estoque('Atualizar', produto_atualizado_data)
                         self.log.registrar("ATUALIZAR", f"Produto {self.__produto.codigo} atualizado com sucesso.")
                         print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
                     else:
@@ -267,12 +264,9 @@ class Produto():
 
         # fim while
 
-    # Fim - atualizar produto
+    # Fim - Atualizar produto
 
-
-    # Remover
-
- #==============================================================================    
+    #==============================================================================    
     def deletar_produto(self):
         msg_validacao = 'Informe o código do produto a ser deletado'  # Mensagem inicial de validação
 
@@ -288,12 +282,12 @@ class Produto():
             self.limpar_produto()
             self.__produto.codigo = input('Código do produto a ser deletado: ')
 
-        # Se o código for '-1', interrompe a operação
+            # Se o código for '-1', interrompe a operação
             if self.__produto.codigo == '-1':
                 print('Operação de deletação cancelada.')
                 break  # Sai do loop e encerra o método
 
-        # Buscar o produto pelo código
+            # Buscar o produto pelo código
             produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
 
             if produtosencontrados.empty:
@@ -335,10 +329,8 @@ class Produto():
                     msg_validacao = ''  # Cancela a operação, mas reinicia a busca
 
             self.bib.limpar_tela()
-# Fim - remover produto
+    # Fim - deletar produto
 
-    # Remover
-  #=======================Andressa_passou_por_aki=======================================================
     #==============================================================================    
     def listar_produtos(self):
         self.bib.limpar_tela()

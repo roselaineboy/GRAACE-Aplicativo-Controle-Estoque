@@ -23,7 +23,7 @@ class Menu(Definicao):
         self.movimentacao = Movimentacao()
         self.relatorio = Relatorio()
         self.log = Log()
-    # fim - init
+    # Fim - init
 
     #==============================================================================
     def exibir_menu(self):
@@ -43,13 +43,13 @@ class Menu(Definicao):
         print('9 - Teste de Log')
         print("0 - Sair")
         print(len_row * '═')
-    #Fim - exibir_menu
+    # Fim - exibir_menu
 
     #==============================================================================
     def chamarlistagem():
         relatorio = Relatorio()
         relatorio.listar_abaixo_estoque_minimo()
-    #Fim - chamar listagem
+    # Fim - chamar listagem
 
     #==============================================================================
     def exibir_solicitar_executar(self):
@@ -96,4 +96,4 @@ class Menu(Definicao):
         print('=-' * 19)
         print(' ' * 8 + 'Obrigado volte sempre!')
         print('=-' * 19)
-    #Fim exibir solicitar executar
+    # Fim - exibir solicitar executar
