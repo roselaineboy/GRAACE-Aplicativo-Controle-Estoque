@@ -156,3 +156,17 @@ class Relatorio():
         input('...')
     # Fim - listar_produto
          
+    #==============================================================================
+    def listar_log(self):
+
+        caminho_arquivo = self.definicao.db_log
+        dados_log = pd.read_csv(caminho_arquivo, delimiter=" - ", header=None, encoding='utf-8')
+        
+        self.imprimir_cabecalho('Listagem do Log')
+        print(tabulate(dados_log, headers="keys", tablefmt="grid"))
+
+        print('Pressione <ENTER> para para voltar ao menu')
+        input('...')
+
+
+    # Fim - listar_log

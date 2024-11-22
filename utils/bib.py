@@ -53,12 +53,19 @@ class Funcao_Global():
         # Verifica se o arquivo existe
         if diretorio_ok:
             if not os.path.exists(caminho):
-                # Cria o arquivo JSON vazio caso ele não exista
-                try:
-                    with open(caminho, 'w') as arquivo:
-                        lista_vazia = pd.DataFrame()
-                        lista_vazia.to_json(caminho, orient='records', indent=4)
+                # Separa a extensão do arquivo
+                _, extensao = os.path.splitext(caminho)
 
+                try:
+                    if extensao == ".json":
+                    # Cria o arquivo JSON vazio caso ele não exista
+                        with open(caminho, 'w') as arquivo:
+                            lista_vazia = pd.DataFrame()
+                            lista_vazia.to_json(caminho, orient='records', indent=4)
+                    elif extensao == ".txt":
+                    # Cria um arquivo TXT vazio
+                        with open(caminho, 'w', encoding='utf-8') as arquivo:
+                            arquivo.write("")
                 except Exception as e:
                     mensagem_retorno = mensagem_retorno + ' ' + f'Erro ao criar o arquivo: {e}'
 
