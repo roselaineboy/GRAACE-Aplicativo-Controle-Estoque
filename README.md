@@ -23,7 +23,7 @@ O objetivo é oferecer uma solução simples para registrar e consultar produtos
 
 - Linguagem: Python
 - Armazenamento: JSon
-- Dependencias: Pandas
+- Dependencias: Pandas, tabulate
 
 ## 📂 Estrutura do Projeto
 

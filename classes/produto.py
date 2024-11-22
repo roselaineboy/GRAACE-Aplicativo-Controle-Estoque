@@ -330,12 +330,3 @@ class Produto():
 
             self.bib.limpar_tela()
     # Fim - deletar produto
-
-    #==============================================================================    
-    def listar_produtos(self):
-        self.bib.limpar_tela()
-        print(self.__lista_produtos)
-        self.log.registrar("LISTAR", "Produtos listados com sucesso.")
-        print('Pressione <ENTER> para para voltar ao menu')
-        input('...')
-    # Fim - listar_produto

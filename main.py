@@ -6,8 +6,11 @@
 #Docente: Adriano V. S. da Silva
 
 import time
+import importlib.util
+import subprocess
+import sys
+
 #from classes.menu import Menu
-from classes.relatorio import Relatorio
 from utils.bib import Funcao_Global
 
 #==============================================================================
@@ -23,20 +26,40 @@ def splash():
     print('=-' * 19)
     print('  Aplicativo de Controle de Estoque')
     print('=-' * 19)
+    del(bib)
 # Fim - splash
+
+#==============================================================================
+def verificar_e_instalar(pacote):
+    # Verificar e instalar o pacote, se necessário
+    if importlib.util.find_spec(pacote) is None:
+        print(f"Pacote '{pacote}' não encontrado. Instalando...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pacote])
 
 #==============================================================================
 if __name__ == '__main__':
     splash()
     
-    from classes.menu import Menu
+    verificar_e_instalar("tabulate")
 
+    from classes.menu import Menu
+    from classes.relatorio import Relatorio
+    from classes.log import Log
+
+    log = Log()
+    log.registrar('Inicializacao', 'ACE inicializado')
     time.sleep(1)
 
     rel = Relatorio()
     rel.listar_abaixo_estoque_minimo(False)
 
     menu = Menu()
-    menu.exibir_solicitar_executar()
-
+    try:
+        menu.exibir_solicitar_executar()
+    except Exception as e:
+        msg_retorno = f"Erro sem tratamento: {e}"
+        log.registrar('ERRO', msg_retorno)
+        print('Ocorreu um erro na execução do ACE, e o mesmo foi registrado no log. Solicite auxilio do suporte.')
+    finally:
+        log.registrar('Encerramento', 'ACE encerrado')
 
