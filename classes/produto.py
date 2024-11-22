@@ -271,74 +271,71 @@ class Produto():
 
 
     # Remover
-   #=======================Andressa_passou_por_aki=======================================================
 
-    #==============================================================================    
+ #==============================================================================    
     def deletar_produto(self):
         msg_validacao = 'Informe o código do produto a ser deletado'  # Mensagem inicial de validação
-    
-        while msg_validacao != '':  # A condição de repetição
+
+        while True:  # Loop para permitir várias tentativas até uma saída válida
             self.bib.limpar_tela()
 
             if len(msg_validacao) > 0:
                 print(msg_validacao)
                 msg_validacao = ''  # Reinicializa a mensagem de validação
 
-            print('Ps.: para desistir digite -1 no código do produto e deixe os demais campos em branco')
+            print('Ps.: para desistir digite -1 no código do produto')
 
             self.limpar_produto()
             self.__produto.codigo = input('Código do produto a ser deletado: ')
 
-            # Se o código for '-1', interrompe a operação
+        # Se o código for '-1', interrompe a operação
             if self.__produto.codigo == '-1':
                 print('Operação de deletação cancelada.')
-            return
-        
+                break  # Sai do loop e encerra o método
+
         # Buscar o produto pelo código
-        produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
+            produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
 
-        if produtosencontrados.empty:
-            print('Produto não encontrado.')
-            print('<ENTER> para tentar outro código')
-            input('...')
-            msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
-        else:
-            produto_deletado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
-            print(f'Produto encontrado: {produto_deletado["nome"]}')
-            confirmacao = input('Tem certeza que deseja deletar este produto? (S/N): ')
+            if produtosencontrados.empty:
+                print('Produto não encontrado.')
+                print('<ENTER> para tentar outro código')
+                input('...')
+                msg_validacao = 'Produto não encontrado, escolha outro código.'  # Mensagem de erro
+            else:
+                produto_deletado = produtosencontrados.iloc[0]  # Pega a primeira linha do produto encontrado
+                print(f'Produto encontrado: {produto_deletado["nome"]}')
+                confirmacao = input('Tem certeza que deseja deletar este produto? (S/N): ')
 
-            if confirmacao.upper() == 'S':
+                if confirmacao.upper() == 'S':
                 # Deleta o produto da lista
-                self.__lista_produtos = self.__lista_produtos[self.__lista_produtos['codigo'] != self.__produto.codigo]
+                    self.__lista_produtos = self.__lista_produtos[self.__lista_produtos['codigo'] != self.__produto.codigo]
                 
                 # Salva a lista atualizada no arquivo JSON
-                msg_validacao = self.salva_lista_produto()  # Salva no arquivo
+                    msg_validacao = self.salva_lista_produto()  # Salva no arquivo
                 
-                if msg_validacao == "":
-                    produto_deletado_data = {
-                        'codigo': produto_deletado['codigo'],
-                        'nome': produto_deletado['nome'],
-                        'categoria': produto_deletado['categoria'],
-                        'valor_unitario': produto_deletado['valor_unitario'],
-                        'qtde_minimaestoque': produto_deletado['qtde_minimaestoque'],
-                        'saldo_estoque': produto_deletado['saldo_estoque']
-                    }
+                    if msg_validacao == "":
+                        produto_deletado_data = {
+                            'codigo': produto_deletado['codigo'],
+                            'nome': produto_deletado['nome'],
+                            'categoria': produto_deletado['categoria'],
+                            'valor_unitario': produto_deletado['valor_unitario'],
+                            'qtde_minimaestoque': produto_deletado['qtde_minimaestoque'],
+                            'saldo_estoque': produto_deletado['saldo_estoque']
+                        }
                     
                     # Registrar a modificação no log
-                    self.log.registrar_modificacao_estoque('Remover', produto_deletado_data)
-                    self.log.registrar("DELETAR", f"Produto {self.__produto.codigo} deletado com sucesso.")
-                    print(f'Produto {self.__produto.codigo} deletado com sucesso!')
+                        self.log.registrar('Remover', produto_deletado_data)
+                        self.log.registrar("DELETAR", f"Produto {self.__produto.codigo} deletado com sucesso.")
+                        print(f'Produto {self.__produto.codigo} deletado com sucesso!')
+                    else:
+                        print('Erro ao deletar o produto.')
+                    break  # Sai do loop após deletar o produto com sucesso
                 else:
-                    print('Erro ao deletar o produto.')
-            else:
-                print('Operação de deletação cancelada.')
-                msg_validacao = ''  # Cancela a operação, mas reinicia a busca
+                    print('Operação de deletação cancelada.')
+                    msg_validacao = ''  # Cancela a operação, mas reinicia a busca
 
-        self.bib.limpar_tela()
-        return
-    # Fim - remover produto
-
-
+            self.bib.limpar_tela()
+# Fim - remover produto
 
     # Remover
   #=======================Andressa_passou_por_aki=======================================================
