@@ -259,7 +259,7 @@ class Produto():
                         print(f'Produto {self.__produto.codigo} atualizado com sucesso!')
                     else:
                         print('Erro ao atualizar o produto.')
-            self.listar_produtos()
+
             # Fim if produto encontrado
 
         # fim while
