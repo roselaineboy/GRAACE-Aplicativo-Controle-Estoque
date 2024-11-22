@@ -12,6 +12,7 @@ import pandas as pd
 
 class Funcao_Global():
     
+    #==============================================================================
     def limpar_tela(self):
         """Limpa a tela do terminal, dependendo do sistema operacional."""
 
@@ -32,6 +33,7 @@ class Funcao_Global():
             os.system('cls')
     # Fim - limpar_tela
 
+    #==============================================================================
     def verifica_arquivo(self, caminho):
         mensagem_retorno = ''
         # Verifica se o diretório existe, caso contrário, cria
@@ -61,8 +63,9 @@ class Funcao_Global():
                     mensagem_retorno = mensagem_retorno + ' ' + f'Erro ao criar o arquivo: {e}'
 
         return mensagem_retorno
-    # fim - verifica_arquivo
+    # Fim - verifica_arquivo
 
+    #==============================================================================
     def eh_numero(self, s):
         if isinstance(s, str):
             if (s.startswith('-') or s.startswith('+') ):
@@ -80,20 +83,22 @@ class Funcao_Global():
         elif isinstance(s, (int, float)):
             return True                
         return True
-    # fim eh_numero
+    # Fim - eh_numero
 
+    #==============================================================================
     def transforma_em_float(self, s):
         if isinstance(s, str):
             s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
             s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
 
         return float(s)
-    # fim transforma_em_float
+    # Fim - transforma_em_float
 
+    #==============================================================================
     def transforma_em_int(self, s):
         if isinstance(s, str):
             s = s.replace('.', '')  # Remove o ponto decimal, pois estamos no Brasil
             s = s.replace(',', '.') # Trocando a vírgula pelo ponto decima, pois estamos no Brasil, mas o python não sabe disso
 
         return int(s)
-    # fim transforma_em_int
+    # Fim - transforma_em_int

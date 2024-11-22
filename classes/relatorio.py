@@ -11,12 +11,14 @@ import pandas as pd
 from utils.bib import Funcao_Global
 
 class Relatorio():
+    #==============================================================================
     def __init__(self):
         self.bib = Funcao_Global()
         self.definicao = Definicao()
         self.__lista_produtos = pd.DataFrame([])
+    # Fim - init
 
-
+    #==============================================================================
     def carrega_lista_produto(self):
 
         caminho_arquivo = self.definicao.db_produtos
@@ -25,15 +27,10 @@ class Relatorio():
         if arquivo_ok == '':
             dados = pd.read_json(caminho_arquivo)
             self.__lista_produtos = pd.DataFrame(dados)
-
-        #if arquivo_ok == '':
-        #    with open(caminho_arquivo, 'r') as arquivo:
-        #        dados = json.load(arquivo)
-        # Converte os dados para um DataFrame do pandas
-        #self.__lista_produtos = pd.DataFrame(dados)
-    # fim - carrega_lista_produto
+    # Fim - carrega_lista_produto
 
 
+    #==============================================================================
     def listar_abaixo_estoque_minimo(self, imprimir_mesmo_que_vazio = True):
         self.bib.limpar_tela()
         self.carrega_lista_produto()
@@ -60,3 +57,4 @@ class Relatorio():
                 input('...')
         
         return
+    # Fim - listar abaixo estoque minimo

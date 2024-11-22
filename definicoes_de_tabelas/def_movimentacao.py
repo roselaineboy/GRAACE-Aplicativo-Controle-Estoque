@@ -6,6 +6,7 @@
 #Docente: Adriano V. S. da Silva
 
 class Def_Movimentacao_Estoque():
+    #==============================================================================
     def __init__(self, codigo=0, tipo_operacao='Entrada', data_movimentacao=None\
                     , saldo_anterior=0, qtde_movimentada=0, saldo_final=0 ):
         self.__codigo = codigo
@@ -14,15 +15,17 @@ class Def_Movimentacao_Estoque():
         self.__saldo_anterior = saldo_anterior
         self.__qtde_movimentada = qtde_movimentada
         self.__saldo_final = saldo_final
+    # Fim - init        
 
+    #==============================================================================
     @property
     def codigo(self):
         return self.__codigo
-  
     @codigo.setter
     def codigo(self, codigo):
         self.__codigo = codigo
 
+    #==============================================================================
     @property
     def nome(self):
         return self.__nome
@@ -30,6 +33,7 @@ class Def_Movimentacao_Estoque():
     def nome(self, nome):
         self.__nome = nome
 
+    #==============================================================================
     @property
     def categoria(self):
         return self.__categoria
@@ -37,6 +41,7 @@ class Def_Movimentacao_Estoque():
     def categoria(self, categoria):
         self.__categoria = categoria
 
+    #==============================================================================
     @property
     def valorunitario(self):
         return self.__valorunitario
@@ -44,6 +49,7 @@ class Def_Movimentacao_Estoque():
     def valorunitario(self, valorunitario):
         self.__valorunitario = valorunitario
 
+    #==============================================================================
     @property
     def qtde_minimaestoque(self):
         return self.__qtde_minimaestoque
@@ -51,6 +57,7 @@ class Def_Movimentacao_Estoque():
     def qtde_minimaestoque(self, qtde_minimaestoque):
         self.__qtde_minimaestoque = qtde_minimaestoque
     
+    #==============================================================================
     @property
     def saldo_estoque(self):
         return self.__saldo_estoque
@@ -58,6 +65,7 @@ class Def_Movimentacao_Estoque():
     def saldo_estoque(self, saldo_estoque):
         self.__saldo_estoque = saldo_estoque
 
+    #==============================================================================
     def validar_conteudo(self):
 
         msg = ''
@@ -80,14 +88,18 @@ class Def_Movimentacao_Estoque():
             msg = msg + '\nO saldo deve ser númerico maior que zero'
 
         return msg
-    #Fim validar_conteudo
+    # Fim - validar_conteudo
 
+    #==============================================================================
     def view(self):
         print(f'Código................: {self.__codigo}')
         print(f'Nome do Produto.......: {self.__nome}')
         print(f'Categoria.............: {self.__categoria}')
         print(f'Valor Unitário........: {self.__valorunitario}')
         print(f'Local de Armazenamento: {self.__localarmazenamento}')
+    # Fim - view
     
+    #==============================================================================
     def __str__(self):
         self.view(self)
+    # Fim - str        

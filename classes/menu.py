@@ -23,7 +23,7 @@ class Menu(Definicao):
         self.movimentacao = Movimentacao()
         self.relatorio = Relatorio()
         self.log = Log()
-    # fim - init
+    # Fim - init
 
     #==============================================================================
     def exibir_menu(self):
@@ -39,16 +39,17 @@ class Menu(Definicao):
         print("5 - Entrada de Estoque")
         print("6 - Saída de Estoque")
         print("7 - Listar Produtos Abaixo do Estoque Mínimo")
-        print('8 - Teste de Log')
+        print('8 - Listar Movimentações de Produto')
+        print('9 - Teste de Log')
         print("0 - Sair")
         print(len_row * '═')
-    #Fim - exibir_menu
+    # Fim - exibir_menu
 
     #==============================================================================
     def chamarlistagem():
         relatorio = Relatorio()
         relatorio.listar_abaixo_estoque_minimo()
-    #Fim - chamar listagem
+    # Fim - chamar listagem
 
     #==============================================================================
     def exibir_solicitar_executar(self):
@@ -63,7 +64,7 @@ class Menu(Definicao):
 
             option = input('\nEscolha uma das opções: ')
         
-            if option not in ['0', '1', '2', '3', '4', '5', '6', '7', '8']:
+            if option not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
                 msg_text = 'Opção inválida!'
             else:
                 if option == '1':
@@ -81,10 +82,11 @@ class Menu(Definicao):
                 elif option == '7':
                     self.relatorio.listar_abaixo_estoque_minimo()
                 elif option == '8':
-                    self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
-                    #print("Log de teste registrado!")
-                    #input("Pressione <ENTER> para voltar ao menu.")
                     self.movimentacao.listar_movimentacoes_produto_por_codigo()
+                elif option == '9':
+                    self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
+                    print("Log de teste registrado!")
+                    input("Pressione <ENTER> para voltar ao menu.")
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 
@@ -94,5 +96,4 @@ class Menu(Definicao):
         print('=-' * 19)
         print(' ' * 8 + 'Obrigado volte sempre!')
         print('=-' * 19)
-    #Fim exibir solicitar executar
-    
+    # Fim - exibir solicitar executar

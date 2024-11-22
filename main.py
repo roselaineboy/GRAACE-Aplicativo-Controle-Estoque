@@ -4,6 +4,7 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
+
 import time
 #from classes.menu import Menu
 from classes.relatorio import Relatorio
@@ -22,7 +23,7 @@ def splash():
     print('=-' * 19)
     print('  Aplicativo de Controle de Estoque')
     print('=-' * 19)
-#Fim - splash
+# Fim - splash
 
 #==============================================================================
 if __name__ == '__main__':

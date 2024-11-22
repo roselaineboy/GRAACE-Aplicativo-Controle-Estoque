@@ -1,17 +1,9 @@
 [
     {
-        "codigo":"A001",
-        "nome":"Produto Um",
-        "categoria":"Categoria Um",
-        "valor_unitario":"15",
-        "qtde_minimaestoque":2,
-        "saldo_estoque":10
-    },
-    {
         "codigo":"A002",
         "nome":"Produto Dois",
         "categoria":"Categoria Um",
-        "valor_unitario":15,
+        "valor_unitario":15.0,
         "qtde_minimaestoque":2,
         "saldo_estoque":10
     },
@@ -19,24 +11,32 @@
         "codigo":"A003",
         "nome":"Produto Tr\u00eas",
         "categoria":"Categoria Um",
-        "valor_unitario":12,
+        "valor_unitario":12.0,
         "qtde_minimaestoque":5,
-        "saldo_estoque":2
+        "saldo_estoque":12
     },
     {
         "codigo":"A004",
         "nome":"Produto Quatro",
         "categoria":"Categoria Um",
-        "valor_unitario":36,
+        "valor_unitario":36.0,
         "qtde_minimaestoque":10,
-        "saldo_estoque":20
+        "saldo_estoque":5
     },
     {
         "codigo":"A006",
         "nome":"Produto seis",
         "categoria":"Categoria Um",
-        "valor_unitario":10,
+        "valor_unitario":10.0,
         "qtde_minimaestoque":2,
-        "saldo_estoque":2
+        "saldo_estoque":0
+    },
+    {
+        "codigo":"A005",
+        "nome":"Produto Cinco",
+        "categoria":"Categoria Dois",
+        "valor_unitario":32,
+        "qtde_minimaestoque":3,
+        "saldo_estoque":5
     }
 ]
