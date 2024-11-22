@@ -157,47 +157,77 @@ class Movimentacao():
 
     #==============================================================================
     def entrada(self):
-        msg_validacao = 'Informe o produto'
-        codigo = ''
-        prod = Produto()
+        self.movimentar('entrada')
 
-        while msg_validacao != '' and codigo == '':
+    #==============================================================================
+    def saida(self):
+        self.movimentar('saída')
+
+    #==============================================================================
+    def movimentar(self, tipo_operacao):
+        msg_validacao = ''
+        codigo = '000'
+        prod = Produto()
+        tem_saldo = True
+
+        while codigo != '-1':
             self.bib.limpar_tela()
             prod.limpar_produto()
 
             if len(msg_validacao) > 0:
                 print(msg_validacao)
                 msg_validacao == ''
-            print('Registrar movimentação de ENTRADA de saldo no estoque.')
-            print('Ps.: para voltar ao MENU deixe o código do produto vazio e pressione <ENTER>')
-            codigo = input('Código: ')
+                print('-' * 15)
 
-            if codigo != '':
+            print('Ps.: para voltar ao MENU deixe o código do produto com -1 e pressione <ENTER>\n')
+            print(f'Registrar movimentação de {tipo_operacao} de saldo do estoque.')
+            codigo = ''
+            codigo = input('Informe o Código: ')
+
+            if codigo != '-1':
+                
                 produto_encontrado = prod.buscar_produto_por_codigo(codigo)
 
                 if not produto_encontrado.empty:
                     prod.preencher_produto(produto_encontrado)
                     prod.ver_produto()
 
-                    qtde_movimentada = input('Informe a quantidade de entrada:')
+                    qtde_movimentada = input(f'Informe a quantidade de {tipo_operacao}:')
 
                     saldo_anterior = prod.saldo_produto_selecionado
-                    saldo_final = float(saldo_anterior) + float(qtde_movimentada)
 
-                    prod.saldo_produto_selecionado = saldo_final
-                    prod.atualizar_produto_na_lista()
+                    if tipo_operacao == 'saída':
+                        saldo_final = float(saldo_anterior) - float(qtde_movimentada)
 
-                    self.registrar_movimentacao_estoque('entrada', codigo, saldo_anterior, qtde_movimentada, saldo_final)
-                    prod.salva_lista_produto()
+                        if saldo_final < 0:
+                            print(f'Não há saldo suficiente para a movimentação solicitada. Saldo Atual: {saldo_anterior}.')
+                            resposta = input('Deseja ajustar a quantidade à movimentar para {saldo_anterior} e continuar a operação? (S/N)')
+                            if resposta.upper() == 'S':
+                                saldo_final = 0
+                                qtde_movimentada = saldo_anterior
+                                tem_saldo = True
+                            else:
+                                tem_saldo = False
+                        else:
+                            tem_saldo = True
+                    else:
+                        tem_saldo = True
+                        saldo_final = float(saldo_anterior) + float(qtde_movimentada)
 
-                    prod.listar_produtos()
+                    if tem_saldo:
+                        prod.saldo_produto_selecionado = saldo_final
+                        prod.atualizar_produto_na_lista()
 
-                    msg_validacao = 'Movimentação registrada com sucesso.'
+                        self.registrar_movimentacao_estoque(tipo_operacao, codigo, saldo_anterior, qtde_movimentada, saldo_final)
+                        prod.salva_lista_produto()
+
+                        msg_validacao = 'Movimentação registrada com sucesso.'
+                    else:
+                        msg_validacao = 'Movimentação cancelada.'
             # fim - if codigo informado
 
         del(prod)
 
-
-    # Fim - buscar_produto_por_codigo
+    # Fim - movimentar
 
 
