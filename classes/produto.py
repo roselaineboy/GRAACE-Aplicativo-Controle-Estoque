@@ -170,9 +170,9 @@ class Produto():
                     msg_validacao = self.salva_lista_produto()
                     if msg_validacao == "":
                         self.ver_produto()
-                        print('Produto incluido com sucesso, pressione <ENTER> para iniciar a inclusão de novo produto, ou MENU para voltar ao menu')
+                        print('Produto incluido com sucesso, pressione <ENTER> para iniciar a inclusão de novo produto.')
                         msg_validacao = input('')
-                        if msg_validacao.upper == "MENU":
+                        if msg_validacao == "-1":
                             msg_validacao = ''
                         else:
                             msg_validacao = 'Informe os dados do produto'
