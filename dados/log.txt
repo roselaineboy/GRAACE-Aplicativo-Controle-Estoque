@@ -103,3 +103,17 @@ In�cio do log
 [2024-11-22 01:12:50] Remover - {'codigo': 'teste]', 'nome': 'teste', 'categoria': 'teste', 'valor_unitario': np.float64(10.0), 'qtde_minimaestoque': np.int64(1), 'saldo_estoque': np.int64(1)}
 [2024-11-22 01:12:50] DELETAR - Produto teste] deletado com sucesso.
 [2024-11-22 01:12:57] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-22 12:50:06] ADICIONAR - Produto A004  adicionado.
+[2024-11-22 13:03:51] BUSCA - Buscando produto para atualização com código 
+[2024-11-22 13:04:00] BUSCA - Buscando produto com código A004
+[2024-11-22 13:04:45] ATUALIZAR - Produto A004 atualizado com sucesso.
+[2024-11-22 07:07:05] BUSCA - Buscando produto para atualização com código 
+[2024-11-22 07:07:07] BUSCA - Buscando produto com código 3
+[2024-11-22 07:07:13] BUSCA - Buscando produto para atualização com código 
+[2024-11-22 07:07:21] BUSCA - Buscando produto com código A003
+[2024-11-22 07:08:22] ATUALIZAR - Produto A003 atualizado com sucesso.
+[2024-11-22 07:10:24] BUSCA - Buscando produto para atualização com código 
+[2024-11-22 07:10:29] BUSCA - Buscando produto com código A006
+[2024-11-22 07:11:06] ATUALIZAR - Produto A006 atualizado com sucesso.
+[2024-11-22 07:13:52] LISTAR - Produtos listados com sucesso.
+[2024-11-22 10:16:33] TESTE - Teste de log foi acionado com sucesso.

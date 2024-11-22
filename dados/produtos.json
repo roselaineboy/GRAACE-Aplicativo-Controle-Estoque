@@ -3,33 +3,33 @@
         "codigo":"A002",
         "nome":"Produto Dois",
         "categoria":"Categoria Um",
-        "valor_unitario":15.0,
+        "valor_unitario":15,
         "qtde_minimaestoque":2,
         "saldo_estoque":10
     },
     {
         "codigo":"A003",
-        "nome":"Produto Tr\u00eas",
-        "categoria":"Categoria Um",
-        "valor_unitario":12.0,
-        "qtde_minimaestoque":5,
-        "saldo_estoque":12
+        "nome":"borracha",
+        "categoria":"Escolar",
+        "valor_unitario":"4,50",
+        "qtde_minimaestoque":"2",
+        "saldo_estoque":"30"
     },
     {
         "codigo":"A004",
-        "nome":"Produto Quatro",
-        "categoria":"Categoria Um",
-        "valor_unitario":36.0,
-        "qtde_minimaestoque":10,
-        "saldo_estoque":5
+        "nome":"Lapiseira",
+        "categoria":"Escolar",
+        "valor_unitario":"20,30",
+        "qtde_minimaestoque":3,
+        "saldo_estoque":6
     },
     {
         "codigo":"A006",
-        "nome":"Produto seis",
-        "categoria":"Categoria Um",
-        "valor_unitario":10.0,
-        "qtde_minimaestoque":2,
-        "saldo_estoque":0
+        "nome":"apontador",
+        "categoria":"escolar",
+        "valor_unitario":"4.50",
+        "qtde_minimaestoque":"2",
+        "saldo_estoque":"30"
     },
     {
         "codigo":"A005",
