@@ -1,8 +1,0 @@
-{"data_movimentacao": "2024-11-21 17:03:09", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
-{"data_movimentacao": "2024-11-21 17:04:50", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
-{"data_movimentacao": "2024-11-21 17:08:08", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "10", "saldo_final": 11}
-{"data_movimentacao": "2024-11-21 17:21:15", "tipo_operacao": "entrada", "codigo": "A002", "saldo_anterior": "10", "qtde_movimentada": "10", "saldo_final": 20}
-{"data_movimentacao": "2024-11-21 23:07:51", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "2", "saldo_final": "3.0"}
-{"data_movimentacao": "2024-11-21 23:19:32", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "1", "qtde_movimentada": "5", "saldo_final": "6.0"}
-{"data_movimentacao": "2024-11-21 23:36:05", "tipo_operacao": "entrada", "codigo": "A001", "saldo_anterior": "6", "qtde_movimentada": "4", "saldo_final": "10.0"}
-{"data_movimentacao": "2024-11-22 00:41:25", "tipo_operacao": "entrada", "codigo": "9", "saldo_anterior": "4", "qtde_movimentada": "4", "saldo_final": "8.0"}
