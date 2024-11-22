@@ -4,27 +4,36 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
-
 import os
 from datetime import datetime
 
 class Log:
-    #==============================================================================
+    # ==============================================================================
     def __init__(self):
-        # Defina o caminho do arquivo de log
-        self.arquivo_log = 'log.txt'  # Caminho relativo, você pode usar um caminho absoluto
-        self.criar_arquivo_log()  # Cria o arquivo de log se não existir
+        # Defina o caminho da pasta e do arquivo de log
+        self.pasta_dados = 'dados'
+        self.arquivo_log = os.path.join(self.pasta_dados, 'log.txt')
+        self.preparar_ambiente()  # Configura a pasta e o arquivo de log
     # Fim - init
 
-    #==============================================================================
-    def criar_arquivo_log(self):
-        # Cria o arquivo de log se ele não existir
+    # ==============================================================================
+    def preparar_ambiente(self):
+        # Cria a pasta 'dados' se não existir
+        if not os.path.exists(self.pasta_dados):
+            os.makedirs(self.pasta_dados)
+        
+        # Move o arquivo de log existente, se necessário
+        log_antigo = 'log.txt'  # Caminho antigo do log
+        if os.path.exists(log_antigo) and not os.path.exists(self.arquivo_log):
+            os.rename(log_antigo, self.arquivo_log)
+        
+        # Cria o arquivo de log se não existir
         if not os.path.exists(self.arquivo_log):
             with open(self.arquivo_log, 'w') as f:
-                f.write("Início do log\n")  # Escreve uma linha de início no arquivo
-    # Fim - criar arquivo
+                f.write("Início do log\n")
+    # Fim - preparar_ambiente
 
-    #==============================================================================
+    # ==============================================================================
     def registrar(self, acao, mensagem):
         try:
             data_hora_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

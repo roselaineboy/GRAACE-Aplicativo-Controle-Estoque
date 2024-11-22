@@ -103,3 +103,4 @@ Início do log
 [2024-11-22 01:12:50] Remover - {'codigo': 'teste]', 'nome': 'teste', 'categoria': 'teste', 'valor_unitario': np.float64(10.0), 'qtde_minimaestoque': np.int64(1), 'saldo_estoque': np.int64(1)}
 [2024-11-22 01:12:50] DELETAR - Produto teste] deletado com sucesso.
 [2024-11-22 01:12:57] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-22 12:50:06] ADICIONAR - Produto A004  adicionado.
