@@ -16,8 +16,7 @@ import pandas as pd
 
 class Movimentacao():
     #==============================================================================
-    def __init__(self):
-        #self.__produtos = []  
+    def __init__(self):  
         self.__log = Log()
         self.bib = Funcao_Global()
         self.definicao = Definicao()
@@ -94,7 +93,6 @@ class Movimentacao():
             if not produto_encontrado.empty:
                 self.carrega_lista_movimentacoes(codigo)
 
-                #movimentacoes_encontradas = self.__lista_movimentacoes[self.__lista_movimentacoes['codigo'].str.upper() == codigo.upper()]
                 self.__lista_movimentacoes['data_movimentacao'] = pd.to_datetime(self.__lista_movimentacoes['data_movimentacao'])
                 self.__lista_movimentacoes = self.__lista_movimentacoes.sort_values(by='data_movimentacao')
 
@@ -115,7 +113,6 @@ class Movimentacao():
 
 
     # Fim - listar_movimentacoes_produto_por_codigo
-
     #==============================================================================
     def entrada(self):
         self.movimentar('entrada')

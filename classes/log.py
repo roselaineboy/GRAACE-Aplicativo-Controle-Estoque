@@ -15,11 +15,8 @@ class Log:
     # ==============================================================================
     def __init__(self):
         self.definicao = Definicao()
-        #self.pasta_dados = 'dados'
-        #self.arquivo_log = os.path.join(self.pasta_dados, 'log.txt')
         self.arquivo_log = self.definicao.db_log
         self.fuso_horario = pytz.timezone('America/Sao_Paulo')  # Ajuste para o seu fuso horário
-        #self.preparar_ambiente()  # Configura a pasta e o arquivo de log
     # Fim - init
 
     # ==============================================================================
@@ -38,20 +35,6 @@ class Log:
 
         del(bib)
         del(definicao)
-
-        ## Cria a pasta 'dados' se não existir
-        #if not os.path.exists(self.pasta_dados):
-        #    os.makedirs(self.pasta_dados)
-        #
-        ## Move o arquivo de log existente, se necessário
-        #log_antigo = 'log.txt'  # Caminho antigo do log
-        #if os.path.exists(log_antigo) and not os.path.exists(self.arquivo_log):
-        #    os.rename(log_antigo, self.arquivo_log)
-        #
-        ## Cria o arquivo de log se não existir
-        #if not os.path.exists(self.arquivo_log):
-        #    with open(self.arquivo_log, 'w') as f:
-        #        f.write("Início do log\n")
     # Fim - preparar_ambiente
 
     # ==============================================================================

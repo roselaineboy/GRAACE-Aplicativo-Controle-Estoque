@@ -150,7 +150,6 @@ class Relatorio():
 
         print(tabulate(produtos_cadastrados, headers="keys", tablefmt="grid"))
 
-        #print(self.__lista_produtos)
         self.log.registrar("LISTAR", "Produtos listados com sucesso.")
         print('Pressione <ENTER> para para voltar ao menu')
         input('...')
@@ -167,6 +166,5 @@ class Relatorio():
 
         print('Pressione <ENTER> para para voltar ao menu')
         input('...')
-
 
     # Fim - listar_log

@@ -85,9 +85,6 @@ class Menu(Definicao):
                     self.movimentacao.listar_movimentacoes_produto_por_codigo()
                 elif option == '9':
                     self.relatorio.listar_log()
-                    #self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
-                    #print("Log de teste registrado!")
-                    #input("Pressione <ENTER> para voltar ao menu.")
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 

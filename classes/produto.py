@@ -223,10 +223,6 @@ class Produto():
                 valor_unitario_atualizado = input(f'Valor Unitário (atual: {produto_atualizado["valor_unitario"]}): ')
                 qtde_minimaestoque_atualizada = input(f'Quantidade Mínima de Estoque (atual: {produto_atualizado["qtde_minimaestoque"]}): ')
 
-                # Corrigir: o saldo não deveria se alterado manualmente, aqui ele deveria apenas ser transportado da pesquisa para a gravação igualmente
-                # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
-                saldo_estoque_atualizado = input(f'Saldo de Estoque (atual: {produto_atualizado["saldo_estoque"]}): ')
-
                 # Se o usuário deixar os campos em branco, manterá o valor atual
                 self.__produto.nome = nome_atualizado if nome_atualizado else produto_atualizado['nome']
                 self.__produto.categoria = categoria_atualizada if categoria_atualizada else produto_atualizado['categoria']
@@ -234,7 +230,6 @@ class Produto():
                 self.__produto.qtde_minimaestoque = qtde_minimaestoque_atualizada if qtde_minimaestoque_atualizada else produto_atualizado['qtde_minimaestoque']
                 # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
                 self.__produto.saldo_estoque = saldo_estoque_atualizado if saldo_estoque_atualizado else produto_atualizado['saldo_estoque']
-                #self.__produto.saldo_estoque = produto_atualizado["saldo_estoque"]
 
                 msg_validacao = self.__produto.validar_conteudo()  # Validação do conteúdo do produto
 
