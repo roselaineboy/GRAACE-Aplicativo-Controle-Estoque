@@ -10,7 +10,7 @@ class Definicao():
     def __init__(self):
         self.__dados_produtos = './dados/produtos.json'
         self.__dados_movimentacoes = './dados/movimentacoes.json'
-        self.__dados_log = './dados/log.json'
+        self.__dados_log = './dados/log.txt'
     # Fim - init
 
     #==============================================================================

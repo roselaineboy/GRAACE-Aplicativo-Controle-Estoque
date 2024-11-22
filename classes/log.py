@@ -9,31 +9,32 @@ import os
 from datetime import datetime
 import pytz  # Biblioteca para lidar com fusos horários
 
+from configuracoes.config import Definicao
+
 class Log:
     # ==============================================================================
     def __init__(self):
-        # Defina o caminho da pasta e do arquivo de log
-        self.pasta_dados = 'dados'
-        self.arquivo_log = os.path.join(self.pasta_dados, 'log.txt')
+        self.definicao = Definicao()
+        self.arquivo_log = self.definicao.db_log
         self.fuso_horario = pytz.timezone('America/Sao_Paulo')  # Ajuste para o seu fuso horário
-        self.preparar_ambiente()  # Configura a pasta e o arquivo de log
     # Fim - init
 
     # ==============================================================================
     def preparar_ambiente(self):
-        # Cria a pasta 'dados' se não existir
-        if not os.path.exists(self.pasta_dados):
-            os.makedirs(self.pasta_dados)
-        
-        # Move o arquivo de log existente, se necessário
-        log_antigo = 'log.txt'  # Caminho antigo do log
-        if os.path.exists(log_antigo) and not os.path.exists(self.arquivo_log):
-            os.rename(log_antigo, self.arquivo_log)
-        
-        # Cria o arquivo de log se não existir
-        if not os.path.exists(self.arquivo_log):
-            with open(self.arquivo_log, 'w') as f:
-                f.write("Início do log\n")
+
+        from configuracoes.config import Definicao
+        from utils.bib import Funcao_Global
+
+        # Defina o caminho da pasta e do arquivo de log
+        definicao = Definicao()
+        bib = Funcao_Global()
+        retorno = bib.verifica_arquivo(definicao.db_log)
+
+        if retorno == "":
+            self.registrar('INICIALIZACAO ACE','Início do log' )
+
+        del(bib)
+        del(definicao)
     # Fim - preparar_ambiente
 
     # ==============================================================================
@@ -41,8 +42,8 @@ class Log:
         try:
             # Obtém o horário atual no fuso horário correto
             data_hora_atual = datetime.now(self.fuso_horario).strftime("%Y-%m-%d %H:%M:%S")
-            log_message = f"[{data_hora_atual}] {acao} - {mensagem}\n"
-            with open(self.arquivo_log, 'a') as f:  # Abre em modo 'a' para adicionar ao arquivo
+            log_message = f"[{data_hora_atual}] - {acao} - {mensagem}\n"
+            with open(self.arquivo_log, 'a', encoding='utf-8') as f:  # Abre em modo 'a' para adicionar ao arquivo
                 f.write(log_message)
         except Exception as e:
             print(f"Erro ao registrar no log: {e}")

@@ -12,8 +12,8 @@
         "nome":"borracha",
         "categoria":"Escolar",
         "valor_unitario":"4,50",
-        "qtde_minimaestoque":"2",
-        "saldo_estoque":"30"
+        "qtde_minimaestoque":2,
+        "saldo_estoque":30
     },
     {
         "codigo":"A004",
@@ -28,8 +28,8 @@
         "nome":"apontador",
         "categoria":"escolar",
         "valor_unitario":"4.50",
-        "qtde_minimaestoque":"2",
-        "saldo_estoque":"30"
+        "qtde_minimaestoque":2,
+        "saldo_estoque":30
     },
     {
         "codigo":"A005",
