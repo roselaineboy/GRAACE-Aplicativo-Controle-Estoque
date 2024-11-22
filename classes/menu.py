@@ -97,4 +97,3 @@ class Menu(Definicao):
         print(' ' * 8 + 'Obrigado volte sempre!')
         print('=-' * 19)
     #Fim exibir solicitar executar
-    
