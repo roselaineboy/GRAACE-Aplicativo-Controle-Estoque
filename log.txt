@@ -79,3 +79,27 @@ In�cio do log
 [2024-11-21 23:45:13] BUSCA - Buscando produto com código A001
 [2024-11-21 23:45:26] ATUALIZAR - Produto A001 atualizado com sucesso.
 [2024-11-21 23:45:26] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:37:25] ADICIONAR - Produto 9 adicionado.
+[2024-11-22 00:38:44] BUSCA - Buscando produto para atualização com código 
+[2024-11-22 00:38:49] BUSCA - Buscando produto com código 9
+[2024-11-22 00:39:17] ATUALIZAR - Produto 9 atualizado com sucesso.
+[2024-11-22 00:39:18] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:40:28] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:40:43] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:41:25] Movimentacao do Estoque - o produto :9 teve uma entrada de 4
+[2024-11-22 00:41:25] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:42:37] TESTE - Teste de log foi acionado com sucesso.
+[2024-11-22 00:46:55] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:53:52] LISTAR - Produtos listados com sucesso.
+[2024-11-22 00:54:17] ADICIONAR - Produto 9 adicionado.
+[2024-11-22 00:54:28] ADICIONAR - Produto MANU adicionado.
+[2024-11-22 00:54:36] LISTAR - Produtos listados com sucesso.
+[2024-11-22 01:02:26] ADICIONAR - Produto Teste adicionado.
+[2024-11-22 01:02:32] LISTAR - Produtos listados com sucesso.
+[2024-11-22 01:05:33] LISTAR - Produtos listados com sucesso.
+[2024-11-22 01:12:13] LISTAR - Produtos listados com sucesso.
+[2024-11-22 01:12:25] ADICIONAR - Produto teste] adicionado.
+[2024-11-22 01:12:31] LISTAR - Produtos listados com sucesso.
+[2024-11-22 01:12:50] Remover - {'codigo': 'teste]', 'nome': 'teste', 'categoria': 'teste', 'valor_unitario': np.float64(10.0), 'qtde_minimaestoque': np.int64(1), 'saldo_estoque': np.int64(1)}
+[2024-11-22 01:12:50] DELETAR - Produto teste] deletado com sucesso.
+[2024-11-22 01:12:57] TESTE - Teste de log foi acionado com sucesso.
