@@ -4,9 +4,11 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
+
 from utils.bib import Funcao_Global
 
 class Def_Produto():
+    #==============================================================================
     def __init__(self, codigo=0, nome='', categoria='', valor_unitario=0.00, qtde_minimaestoque=0, saldo_estoque=0.00 ):
         self.__codigo = codigo
         self.__nome = nome
@@ -15,7 +17,9 @@ class Def_Produto():
         self.__qtde_minimaestoque = qtde_minimaestoque
         self.__saldo_estoque = saldo_estoque
         self.bib = Funcao_Global()
+    # Fim - init
 
+    #==============================================================================
     @property
     def linha_produto(self):
         return [{
@@ -27,14 +31,15 @@ class Def_Produto():
             , 'saldo_estoque': self.bib.transforma_em_int(self.__saldo_estoque)
         }]
 
+    #==============================================================================
     @property
     def codigo(self):
         return self.__codigo
-  
     @codigo.setter
     def codigo(self, codigo):
         self.__codigo = codigo
 
+    #==============================================================================
     @property
     def nome(self):
         return self.__nome
@@ -42,6 +47,7 @@ class Def_Produto():
     def nome(self, nome):
         self.__nome = nome
 
+    #==============================================================================
     @property
     def categoria(self):
         return self.__categoria
@@ -49,6 +55,7 @@ class Def_Produto():
     def categoria(self, categoria):
         self.__categoria = categoria
 
+    #==============================================================================
     @property
     def valorunitario(self):
         return self.__valorunitario
@@ -56,6 +63,7 @@ class Def_Produto():
     def valorunitario(self, valorunitario):
         self.__valorunitario = valorunitario
 
+    #==============================================================================
     @property
     def qtde_minimaestoque(self):
         return self.__qtde_minimaestoque
@@ -63,6 +71,7 @@ class Def_Produto():
     def qtde_minimaestoque(self, qtde_minimaestoque):
         self.__qtde_minimaestoque = qtde_minimaestoque
     
+    #==============================================================================
     @property
     def saldo_estoque(self):
         return self.__saldo_estoque
@@ -70,6 +79,7 @@ class Def_Produto():
     def saldo_estoque(self, saldo_estoque):
         self.__saldo_estoque = saldo_estoque
 
+    #==============================================================================
     def validar_conteudo(self):
 
         msg = ''
@@ -94,8 +104,9 @@ class Def_Produto():
             msg = msg + '\nO saldo deve ser númerico maior que zero'
 
         return msg
-    #Fim validar_conteudo
+    # Fim - validar_conteudo
 
+    #==============================================================================
     def view(self):
         print(f'Código................: {self.__codigo}')
         print(f'Nome do Produto.......: {self.__nome}')
@@ -103,6 +114,8 @@ class Def_Produto():
         print(f'Valor Unitário........: {self.__valorunitario}')
         print(f'Qtde Mínima em Estoque: {self.__qtde_minimaestoque}')
         print(f'Saldo em Estoque......: {self.__saldo_estoque}')
-    
+    # Fim - view    
+    #==============================================================================
     def __str__(self):
         self.view()
+    # Fim - str        
