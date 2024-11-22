@@ -40,7 +40,7 @@ class Menu(Definicao):
         print("6 - Saída de Estoque")
         print("7 - Listar Produtos Abaixo do Estoque Mínimo")
         print('8 - Listar Movimentações de Produto')
-        print('9 - Teste de Log')
+        print('9 - Listar Log')
         print("0 - Sair")
         print(len_row * '═')
     # Fim - exibir_menu
@@ -84,9 +84,10 @@ class Menu(Definicao):
                 elif option == '8':
                     self.movimentacao.listar_movimentacoes_produto_por_codigo()
                 elif option == '9':
-                    self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
-                    print("Log de teste registrado!")
-                    input("Pressione <ENTER> para voltar ao menu.")
+                    self.relatorio.listar_log()
+                    #self.log.registrar("TESTE", "Teste de log foi acionado com sucesso.")
+                    #print("Log de teste registrado!")
+                    #input("Pressione <ENTER> para voltar ao menu.")
                 else:
                     msg_text = msg_text + '\npressione enter para exibir o menu novamente'
 

@@ -42,17 +42,19 @@ if __name__ == '__main__':
     
     verificar_e_instalar("tabulate")
 
-    from classes.menu import Menu
-    from classes.relatorio import Relatorio
     from classes.log import Log
-
     log = Log()
+    log.preparar_ambiente()
+
     log.registrar('Inicializacao', 'ACE inicializado')
+
     time.sleep(1)
 
+    from classes.relatorio import Relatorio
     rel = Relatorio()
     rel.listar_abaixo_estoque_minimo(False)
 
+    from classes.menu import Menu
     menu = Menu()
     try:
         menu.exibir_solicitar_executar()
