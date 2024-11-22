@@ -74,7 +74,7 @@ class Menu(Definicao):
                 elif option == '3':
                     self.produto.deletar_produto()
                 elif option == '4':
-                    self.produto.listar_produtos()
+                    self.relatorio.listar_produtos()
                 elif option == '5':
                     self.movimentacao.entrada()
                 elif option == '6':
