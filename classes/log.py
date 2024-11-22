@@ -4,8 +4,10 @@
 #Disciplina: Python
 #Atividade: Trabalho Final
 #Docente: Adriano V. S. da Silva
+
 import os
 from datetime import datetime
+import pytz  # Biblioteca para lidar com fusos horários
 
 class Log:
     # ==============================================================================
@@ -13,6 +15,7 @@ class Log:
         # Defina o caminho da pasta e do arquivo de log
         self.pasta_dados = 'dados'
         self.arquivo_log = os.path.join(self.pasta_dados, 'log.txt')
+        self.fuso_horario = pytz.timezone('America/Sao_Paulo')  # Ajuste para o seu fuso horário
         self.preparar_ambiente()  # Configura a pasta e o arquivo de log
     # Fim - init
 
@@ -36,7 +39,8 @@ class Log:
     # ==============================================================================
     def registrar(self, acao, mensagem):
         try:
-            data_hora_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            # Obtém o horário atual no fuso horário correto
+            data_hora_atual = datetime.now(self.fuso_horario).strftime("%Y-%m-%d %H:%M:%S")
             log_message = f"[{data_hora_atual}] {acao} - {mensagem}\n"
             with open(self.arquivo_log, 'a') as f:  # Abre em modo 'a' para adicionar ao arquivo
                 f.write(log_message)
