@@ -44,6 +44,7 @@ O objetivo é oferecer uma solução simples para registrar e consultar produtos
 ├── definicoes_de_tabelas/
 │   ├── def_produto.py
 │   └── def_estoque.py
+│   └── def_log.py
 ├── utils/
 │   └── bib.py
 ├── main.py
