@@ -24,3 +24,35 @@
 [2024-11-22 17:07:04] - BUSCA - Buscando produto para atualização com código 
 [2024-11-22 17:07:07] - BUSCA - Buscando produto com código -1
 [2024-11-22 17:07:44] - BUSCA - Buscando produto para atualização com código 
+[2024-11-22 23:28:07] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:28:07] - Inicializacao - ACE inicializado
+[2024-11-22 23:28:11] - LISTAR - Produtos listados com sucesso.
+[2024-11-22 23:28:21] - LISTAR - Produtos listados com sucesso.
+[2024-11-22 23:28:27] - BUSCA - Buscando produto para atualização com código 
+[2024-11-22 23:28:30] - BUSCA - Buscando produto com código -1
+[2024-11-22 23:28:31] - BUSCA - Buscando produto para atualização com código 
+[2024-11-22 23:28:32] - BUSCA - Buscando produto com código 
+[2024-11-22 23:28:32] - BUSCA - Buscando produto para atualização com código 
+[2024-11-22 23:28:37] - BUSCA - Buscando produto com código exit
+[2024-11-22 23:28:38] - BUSCA - Buscando produto para atualização com código 
+[2024-11-22 23:32:51] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:32:51] - Inicializacao - ACE inicializado
+[2024-11-22 23:35:58] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:35:58] - Inicializacao - ACE inicializado
+[2024-11-22 23:36:02] - LISTAR - Produtos listados com sucesso.
+[2024-11-22 23:36:23] - BUSCA - Buscando produto com código A005
+[2024-11-22 23:36:25] - ATUALIZAR - Produto A005 atualizado com sucesso.
+[2024-11-22 23:36:32] - BUSCA - Buscando produto com código 
+[2024-11-22 23:39:31] - BUSCA - Buscando produto com código 
+[2024-11-22 23:41:50] - Encerramento - ACE encerrado
+[2024-11-22 23:41:51] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:41:51] - Inicializacao - ACE inicializado
+[2024-11-22 23:42:18] - LISTAR - Produtos listados com sucesso.
+[2024-11-22 23:43:51] - Encerramento - ACE encerrado
+[2024-11-22 23:43:53] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:43:53] - Inicializacao - ACE inicializado
+[2024-11-22 23:43:58] - ERRO - Erro sem tratamento: name 'time' is not defined
+[2024-11-22 23:43:58] - Encerramento - ACE encerrado
+[2024-11-22 23:44:25] - INICIALIZACAO ACE - Início do log
+[2024-11-22 23:44:25] - Inicializacao - ACE inicializado
+[2024-11-22 23:44:35] - Encerramento - ACE encerrado

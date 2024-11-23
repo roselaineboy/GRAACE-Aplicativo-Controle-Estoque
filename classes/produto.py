@@ -186,7 +186,7 @@ class Produto():
     #==============================================================================    
     def atualizar_produto(self):
         msg_validacao = 'Informe os dados do produto para atualização'  # Inicializa a variável antes de usar
-    
+
         while msg_validacao != '':  # A condição de repetição
             self.bib.limpar_tela()
 
@@ -197,8 +197,12 @@ class Produto():
             print('Ps.: para desistir digite -1 no código do produto e deixe os demais campos em branco')
 
             self.limpar_produto()
-            self.log.registrar("BUSCA", f"Buscando produto para atualização com código {self.__produto.codigo}")
             self.__produto.codigo = input('Código do produto a ser atualizado: ')
+
+            # Verifica se o usuário quer desistir
+            if self.__produto.codigo == '-1':
+                print('Operação cancelada. Retornando ao menu...')
+                break
 
             # Buscar o produto pelo código
             produtosencontrados = self.buscar_produto_por_codigo(self.__produto.codigo)
@@ -228,8 +232,8 @@ class Produto():
                 self.__produto.categoria = categoria_atualizada if categoria_atualizada else produto_atualizado['categoria']
                 self.__produto.valorunitario = valor_unitario_atualizado if valor_unitario_atualizado else produto_atualizado['valor_unitario']
                 self.__produto.qtde_minimaestoque = qtde_minimaestoque_atualizada if qtde_minimaestoque_atualizada else produto_atualizado['qtde_minimaestoque']
-                # não se pode mexer no saldo assim, apenas através das movimentações de entrada e saida, o saldo será mantido o mesmo
-                self.__produto.saldo_estoque = saldo_estoque_atualizado if saldo_estoque_atualizado else produto_atualizado['saldo_estoque']
+                # Não se pode mexer no saldo assim, apenas através das movimentações de entrada e saída, o saldo será mantido o mesmo.
+                self.__produto.saldo_estoque = produto_atualizado['saldo_estoque']
 
                 msg_validacao = self.__produto.validar_conteudo()  # Validação do conteúdo do produto
 
@@ -258,9 +262,7 @@ class Produto():
             # Fim if produto encontrado
 
         # fim while
-
-    # Fim - Atualizar produto
-
+        #fim atualizar produto
     #==============================================================================    
     def deletar_produto(self):
         msg_validacao = 'Informe o código do produto a ser deletado'  # Mensagem inicial de validação
